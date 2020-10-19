@@ -14,7 +14,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public List<User> findAllUser() {
+    public List<User> findAllUser() throws Exception {
+        //throw new Exception("11111");
         return userMapper.selectAll();
     }
 }

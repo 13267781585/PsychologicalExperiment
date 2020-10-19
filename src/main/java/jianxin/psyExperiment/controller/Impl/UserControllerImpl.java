@@ -15,7 +15,7 @@ public class UserControllerImpl implements UserController {
     private UserService userService;
 
     @RequestMapping("/findAll")
-    public List<User> findAllUser(){
+    public List<User> findAllUser() throws Exception {
         return userService.findAllUser();
     }
 }
