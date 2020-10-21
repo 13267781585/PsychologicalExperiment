@@ -16,6 +16,10 @@ public class UserSqlProvider {
             sql.VALUES("username", "#{username,jdbcType=VARCHAR}");
         }
         
+        if (record.getIdentity() != null) {
+            sql.VALUES("identity", "#{identity,jdbcType=VARCHAR}");
+        }
+        
         if (record.getFaceUrl() != null) {
             sql.VALUES("face_url", "#{faceUrl,jdbcType=VARCHAR}");
         }
@@ -48,8 +52,16 @@ public class UserSqlProvider {
             sql.VALUES("sno", "#{sno,jdbcType=INTEGER}");
         }
         
-        if (record.getScore() != null) {
-            sql.VALUES("score", "#{score,jdbcType=REAL}");
+        if (record.getPerformanceScore() != null) {
+            sql.VALUES("performance_score", "#{performanceScore,jdbcType=REAL}");
+        }
+        
+        if (record.getCreditScore() != null) {
+            sql.VALUES("credit_score", "#{creditScore,jdbcType=REAL}");
+        }
+        
+        if (record.getCoins() != null) {
+            sql.VALUES("coins", "#{coins,jdbcType=INTEGER}");
         }
         
         return sql.toString();
@@ -61,6 +73,10 @@ public class UserSqlProvider {
         
         if (record.getUsername() != null) {
             sql.SET("username = #{username,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getIdentity() != null) {
+            sql.SET("identity = #{identity,jdbcType=VARCHAR}");
         }
         
         if (record.getFaceUrl() != null) {
@@ -95,8 +111,16 @@ public class UserSqlProvider {
             sql.SET("sno = #{sno,jdbcType=INTEGER}");
         }
         
-        if (record.getScore() != null) {
-            sql.SET("score = #{score,jdbcType=REAL}");
+        if (record.getPerformanceScore() != null) {
+            sql.SET("performance_score = #{performanceScore,jdbcType=REAL}");
+        }
+        
+        if (record.getCreditScore() != null) {
+            sql.SET("credit_score = #{creditScore,jdbcType=REAL}");
+        }
+        
+        if (record.getCoins() != null) {
+            sql.SET("coins = #{coins,jdbcType=INTEGER}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

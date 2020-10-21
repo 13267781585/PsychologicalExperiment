@@ -5,6 +5,8 @@ public class User {
 
     private String username;
 
+    private String identity;
+
     private String faceUrl;
 
     private String college;
@@ -21,7 +23,11 @@ public class User {
 
     private Integer sno;
 
-    private Float score;
+    private Float performanceScore;
+
+    private Float creditScore;
+
+    private Integer coins;
 
     public Integer getId() {
         return id;
@@ -37,6 +43,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity == null ? null : identity.trim();
     }
 
     public String getFaceUrl() {
@@ -103,11 +117,27 @@ public class User {
         this.sno = sno;
     }
 
-    public Float getScore() {
-        return score;
+    public Float getPerformanceScore() {
+        return performanceScore;
     }
 
-    public void setScore(Float score) {
-        this.score = score;
+    public void setPerformanceScore(Float performanceScore) {
+        this.performanceScore = performanceScore;
+    }
+
+    public Float getCreditScore() {
+        return creditScore;
+    }
+
+    public void setCreditScore(Float creditScore) {
+        this.creditScore = creditScore;
+    }
+
+    public Integer getCoins() {
+        return coins;
+    }
+
+    public void setCoins(Integer coins) {
+        this.coins = coins;
     }
 }

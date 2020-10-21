@@ -25,6 +25,11 @@ public class ServerReturnObject implements Serializable {
         return new ServerReturnObject(1,null,data);
     }
 
+    public static ServerReturnObject createSuccessByMessage(String msg)
+    {
+        return new ServerReturnObject(1,msg,null);
+    }
+
     public static ServerReturnObject createSuccessByMessageAndData(String msg,Object data)
     {
         return new ServerReturnObject(1,msg,data);
