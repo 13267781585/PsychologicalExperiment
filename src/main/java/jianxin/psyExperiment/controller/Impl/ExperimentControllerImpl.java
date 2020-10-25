@@ -26,7 +26,7 @@ public class ExperimentControllerImpl implements ExperimentController {
         Map<String,Object> map = new HashMap<String,Object>();
         int flag = experimentService.addExp(experiment);
         if(flag == 1){
-            map.put("msg","新增实验成功了1111");
+            map.put("msg","新增实验成功了11115546546545");
             return map;
         }else{
             map.put("msg","新增实验失败");
