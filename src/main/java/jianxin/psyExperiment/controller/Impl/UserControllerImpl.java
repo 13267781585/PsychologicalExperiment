@@ -21,7 +21,7 @@ public class UserControllerImpl implements UserController {
 
     @RequestMapping("/findAll")
     public List<User> findAllUser() throws Exception {
-        LOGGER.info("==================println======================");
+        LOGGER.info("==================println===========1111");
         return userService.findAllUser();
     }
 
