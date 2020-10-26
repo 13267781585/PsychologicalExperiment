@@ -30,4 +30,15 @@ public class UserControllerImpl implements UserController {
         LOGGER.info("==================println======================");
         return userService.getUser(id);
     }
+
+    @RequestMapping("/register")
+    public ServerReturnObject register(User user) throws Exception {
+        return userService.register(user);
+    }
+
+    @RequestMapping("/edit")
+    public ServerReturnObject edit(User user) {
+        return userService.edit(user);
+    }
+
 }

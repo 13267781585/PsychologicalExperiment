@@ -12,6 +12,10 @@ public class UserSqlProvider {
             sql.VALUES("id", "#{id,jdbcType=INTEGER}");
         }
         
+        if (record.getOpenId() != null) {
+            sql.VALUES("open_id", "#{openId,jdbcType=INTEGER}");
+        }
+        
         if (record.getUsername() != null) {
             sql.VALUES("username", "#{username,jdbcType=VARCHAR}");
         }
@@ -64,12 +68,20 @@ public class UserSqlProvider {
             sql.VALUES("coins", "#{coins,jdbcType=INTEGER}");
         }
         
+        if (record.getWechat() != null) {
+            sql.VALUES("wechat", "#{wechat,jdbcType=VARCHAR}");
+        }
+        
         return sql.toString();
     }
 
     public String updateByPrimaryKeySelective(User record) {
         SQL sql = new SQL();
         sql.UPDATE("user");
+        
+        if (record.getOpenId() != null) {
+            sql.SET("open_id = #{openId,jdbcType=INTEGER}");
+        }
         
         if (record.getUsername() != null) {
             sql.SET("username = #{username,jdbcType=VARCHAR}");
@@ -121,6 +133,10 @@ public class UserSqlProvider {
         
         if (record.getCoins() != null) {
             sql.SET("coins = #{coins,jdbcType=INTEGER}");
+        }
+        
+        if (record.getWechat() != null) {
+            sql.SET("wechat = #{wechat,jdbcType=VARCHAR}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface ExperimentService {
-    ServerReturnObject getAllExp();
+    ServerReturnObject findAllExperiment();
 
-    int addExp(Experiment experiment);
+    ServerReturnObject insertExperiment(Experiment experiment);
 
     ServerReturnObject getTesterExp(Integer testerId);
 
     ServerReturnObject deleteExp(Integer id);
 
-
+    ServerReturnObject selectById(Integer id);
 
 }

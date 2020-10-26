@@ -16,22 +16,19 @@ public class ExperimentControllerImpl implements ExperimentController {
     @Autowired
     private ExperimentService experimentService;
 
-    @RequestMapping("/getAllExp")
-    public ServerReturnObject getAllExp(){
-        return experimentService.getAllExp();
+    @RequestMapping("/findAllExperiment")
+    public ServerReturnObject findAllExperiment(){
+        return experimentService.findAllExperiment();
     }
 
-    @RequestMapping(value="/addExp")
-    public Map addExp(Experiment experiment){
-        Map<String,Object> map = new HashMap<String,Object>();
-        int flag = experimentService.addExp(experiment);
-        if(flag == 1){
-            map.put("msg","新增实验成功");
-            return map;
-        }else{
-            map.put("msg","新增实验失败");
-            return map;
-        }
+    @RequestMapping(value="/insertExperiment")
+    public ServerReturnObject insertExperiment(Experiment experiment){
+       return experimentService.insertExperiment(experiment);
+    }
+
+    @RequestMapping("/selectByExpId")
+    public ServerReturnObject selectById(Integer id) {
+        return experimentService.selectById(id);
     }
 
     @RequestMapping("/getTesterExp")

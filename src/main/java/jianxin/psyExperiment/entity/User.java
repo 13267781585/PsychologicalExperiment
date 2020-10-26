@@ -3,6 +3,8 @@ package jianxin.psyExperiment.entity;
 public class User {
     private Integer id;
 
+    private Integer openId;
+
     private String username;
 
     private String identity;
@@ -29,12 +31,22 @@ public class User {
 
     private Integer coins;
 
+    private String wechat;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(Integer openId) {
+        this.openId = openId;
     }
 
     public String getUsername() {
@@ -139,5 +151,13 @@ public class User {
 
     public void setCoins(Integer coins) {
         this.coins = coins;
+    }
+
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat == null ? null : wechat.trim();
     }
 }

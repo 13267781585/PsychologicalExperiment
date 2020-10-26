@@ -1,12 +1,18 @@
 package jianxin.psyExperiment.mapper;
 
 import jianxin.psyExperiment.entity.User;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
 
-@Mapper
 public interface UserMapper {
     @Delete({
         "delete from user",
@@ -15,18 +21,20 @@ public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into user (id, username, ",
-        "identity, face_url, ",
-        "college, major, ",
-        "grade, phone, sex, ",
-        "duration, sno, performance_score, ",
-        "credit_score, coins)",
-        "values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, ",
-        "#{identity,jdbcType=VARCHAR}, #{faceUrl,jdbcType=VARCHAR}, ",
-        "#{college,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, ",
-        "#{grade,jdbcType=SMALLINT}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, ",
-        "#{duration,jdbcType=REAL}, #{sno,jdbcType=INTEGER}, #{performanceScore,jdbcType=REAL}, ",
-        "#{creditScore,jdbcType=REAL}, #{coins,jdbcType=INTEGER})"
+        "insert into user (id, open_id, ",
+        "username, identity, ",
+        "face_url, college, ",
+        "major, grade, phone, ",
+        "sex, duration, sno, ",
+        "performance_score, credit_score, ",
+        "coins, wechat)",
+        "values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=INTEGER}, ",
+        "#{username,jdbcType=VARCHAR}, #{identity,jdbcType=VARCHAR}, ",
+        "#{faceUrl,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, ",
+        "#{major,jdbcType=VARCHAR}, #{grade,jdbcType=SMALLINT}, #{phone,jdbcType=VARCHAR}, ",
+        "#{sex,jdbcType=VARCHAR}, #{duration,jdbcType=REAL}, #{sno,jdbcType=INTEGER}, ",
+        "#{performanceScore,jdbcType=REAL}, #{creditScore,jdbcType=REAL}, ",
+        "#{coins,jdbcType=INTEGER}, #{wechat,jdbcType=VARCHAR})"
     })
     int insert(User record);
 
@@ -35,13 +43,14 @@ public interface UserMapper {
 
     @Select({
         "select",
-        "id, username, identity, face_url, college, major, grade, phone, sex, duration, ",
-        "sno, performance_score, credit_score, coins",
+        "id, open_id, username, identity, face_url, college, major, grade, phone, sex, ",
+        "duration, sno, performance_score, credit_score, coins, wechat",
         "from user",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="open_id", property="openId", jdbcType=JdbcType.INTEGER),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="identity", property="identity", jdbcType=JdbcType.VARCHAR),
         @Result(column="face_url", property="faceUrl", jdbcType=JdbcType.VARCHAR),
@@ -54,7 +63,8 @@ public interface UserMapper {
         @Result(column="sno", property="sno", jdbcType=JdbcType.INTEGER),
         @Result(column="performance_score", property="performanceScore", jdbcType=JdbcType.REAL),
         @Result(column="credit_score", property="creditScore", jdbcType=JdbcType.REAL),
-        @Result(column="coins", property="coins", jdbcType=JdbcType.INTEGER)
+        @Result(column="coins", property="coins", jdbcType=JdbcType.INTEGER),
+        @Result(column="wechat", property="wechat", jdbcType=JdbcType.VARCHAR)
     })
     User selectByPrimaryKey(Integer id);
 
@@ -63,7 +73,8 @@ public interface UserMapper {
 
     @Update({
         "update user",
-        "set username = #{username,jdbcType=VARCHAR},",
+        "set open_id = #{openId,jdbcType=INTEGER},",
+          "username = #{username,jdbcType=VARCHAR},",
           "identity = #{identity,jdbcType=VARCHAR},",
           "face_url = #{faceUrl,jdbcType=VARCHAR},",
           "college = #{college,jdbcType=VARCHAR},",
@@ -75,7 +86,8 @@ public interface UserMapper {
           "sno = #{sno,jdbcType=INTEGER},",
           "performance_score = #{performanceScore,jdbcType=REAL},",
           "credit_score = #{creditScore,jdbcType=REAL},",
-          "coins = #{coins,jdbcType=INTEGER}",
+          "coins = #{coins,jdbcType=INTEGER},",
+          "wechat = #{wechat,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(User record);
@@ -85,4 +97,26 @@ public interface UserMapper {
             "from user"
     })
     List<User> selectAll();
+
+    @Update({
+            "update user",
+            "set open_id = #{openId,jdbcType=INTEGER},",
+            "username = #{username,jdbcType=VARCHAR},",
+            "identity = #{identity,jdbcType=VARCHAR},",
+            "face_url = #{faceUrl,jdbcType=VARCHAR},",
+            "college = #{college,jdbcType=VARCHAR},",
+            "major = #{major,jdbcType=VARCHAR},",
+            "grade = #{grade,jdbcType=SMALLINT},",
+            "phone = #{phone,jdbcType=VARCHAR},",
+            "sex = #{sex,jdbcType=VARCHAR},",
+            "duration = #{duration,jdbcType=REAL},",
+            "sno = #{sno,jdbcType=INTEGER},",
+            "performance_score = #{performanceScore,jdbcType=REAL},",
+            "credit_score = #{creditScore,jdbcType=REAL},",
+            "coins = #{coins,jdbcType=INTEGER},",
+            "wechat = #{wechat,jdbcType=VARCHAR}",
+            "where open_id = #{openId,jdbcType=INTEGER}"
+    })
+    int updateByOpenId(User record);
+
 }

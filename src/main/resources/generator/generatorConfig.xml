@@ -60,13 +60,13 @@ type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
         <table tableName="user" domainObjectName="User" enableDeleteByExample="false" enableCountByExample="false"
         enableSelectByExample="false" enableUpdateByExample="false"/>
 
-        <!--设置要将数据库中的那张表逆向生成哪一个Javabean，tableName为数据库表名，domainObjectName为实体类-->
-        <table tableName="experiment" domainObjectName="Experiment" enableDeleteByExample="false" enableCountByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
+<!--        &lt;!&ndash;设置要将数据库中的那张表逆向生成哪一个Javabean，tableName为数据库表名，domainObjectName为实体类&ndash;&gt;-->
+<!--        <table tableName="experiment" domainObjectName="Experiment" enableDeleteByExample="false" enableCountByExample="false"-->
+<!--               enableSelectByExample="false" enableUpdateByExample="false"/>-->
 
-        <!--设置要将数据库中的那张表逆向生成哪一个Javabean，tableName为数据库表名，domainObjectName为实体类-->
-        <table tableName="experiment_user_like" domainObjectName="ExperimentUserLike" enableDeleteByExample="false" enableCountByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false"/>
+<!--        &lt;!&ndash;设置要将数据库中的那张表逆向生成哪一个Javabean，tableName为数据库表名，domainObjectName为实体类&ndash;&gt;-->
+<!--        <table tableName="experiment_user_like" domainObjectName="ExperimentUserLike" enableDeleteByExample="false" enableCountByExample="false"-->
+<!--               enableSelectByExample="false" enableUpdateByExample="false"/>-->
 
     </context>
 </generatorConfiguration>

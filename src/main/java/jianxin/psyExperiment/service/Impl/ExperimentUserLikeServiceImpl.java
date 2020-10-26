@@ -9,7 +9,9 @@ import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Service
 public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService {
@@ -74,5 +76,42 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
         else{
             return ServerReturnObject.createErrorByMessage("取消收藏失败");
         }
+    }
+
+    @Override
+    public ServerReturnObject ifCollected(ExperimentUserLike experimentUserLike) {
+        if(experimentUserLike.getExperimentId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：experimentId");
+        }
+        if(experimentUserLike.getUserId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        }
+
+        ExperimentUserLike result = experimentUserLikeMapper.selectByRecord(experimentUserLike);
+        if(result != null)
+        {
+            //实验收藏数减一
+            return ServerReturnObject.createSuccessByMessageAndData("已收藏",result);
+        }
+        else{
+            return ServerReturnObject.createSuccessByMessage("未收藏");
+        }
+    }
+
+    @Override
+    public ServerReturnObject findCollections(Integer userId) {
+        List<Integer> idList = experimentUserLikeMapper.selectByUserId(userId);
+
+        List<Experiment> experimentList = new ArrayList<Experiment>();
+        Experiment temp;
+        for(int i = 0;i<idList.size();i++)
+        {
+            temp = experimentMapper.selectByPrimaryKey(idList.get(i));
+            experimentList.add(temp);
+        }
+        return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",experimentList);
+
     }
 }

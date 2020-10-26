@@ -19,16 +19,78 @@ public class ExperimentServiceImpl implements ExperimentService {
 
 
     @Override
-    public ServerReturnObject getAllExp() {
+    public ServerReturnObject findAllExperiment() {
         List<Experiment> result = experimentMapper.selectAll();
 
         return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",result);
     }
 
     @Override
-    public int addExp(Experiment experiment) {
-        int aFlag = experimentMapper.insert(experiment);
-        return aFlag;
+    public ServerReturnObject insertExperiment(Experiment experiment) {
+
+        if(experiment.getTesterId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：testerId");
+        }
+        if(experiment.getType()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：type");
+        }
+        if(experiment.getName()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：name");
+        }
+        if(experiment.getContent()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：content");
+        }
+        if(experiment.getDuration()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：duration");
+        }
+        if(experiment.getReward()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：reward");
+        }
+        if(experiment.getPlace()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：place");
+        }
+        if(experiment.getRequirement()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：requirement");
+        }
+        if(experiment.getTime()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：time");
+        }
+        if(experiment.getSendTimestamp()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：sendTimestamp");
+        }
+        if(experiment.getPageView()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：pageView");
+        }
+        if(experiment.getEnrollment()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：enrollment");
+        }
+        if(experiment.getTotalLikes()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：totalLikes");
+        }
+        if(experiment.getScore()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：score");
+        }
+
+        int result = experimentMapper.insert(experiment);
+        if(result == 1){
+            return ServerReturnObject.createSuccessByMessage("数据添加成功");
+        }else{
+            return ServerReturnObject.createErrorByMessage("新增实验失败");
+        }
     }
 
     @Override
@@ -53,6 +115,21 @@ public class ExperimentServiceImpl implements ExperimentService {
         int result = experimentMapper.deleteByPrimaryKey(id);
         if(result==1){
             return ServerReturnObject.createSuccessByMessage("实验删除成功");
+        }
+        else{
+            return ServerReturnObject.createErrorByMessage("指定实验不存在");
+        }
+    }
+
+    @Override
+    public ServerReturnObject selectById(Integer id) {
+        if(id==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：id");
+        }
+        Experiment result = experimentMapper.selectByPrimaryKey(id);
+        if(result==null){
+            return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",result);
         }
         else{
             return ServerReturnObject.createErrorByMessage("指定实验不存在");

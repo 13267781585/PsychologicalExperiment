@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface ExperimentController {
-    public ServerReturnObject getAllExp();
+    public ServerReturnObject findAllExperiment();
 
     //发布实验
-    public Map addExp(Experiment experiment);
+    public ServerReturnObject insertExperiment(Experiment experiment);
+
+    //获取指定id的实验接口
+    public ServerReturnObject selectById(Integer id);
 
     //获取指定主试的所有实验接口
     public ServerReturnObject getTesterExp(Integer testerId);

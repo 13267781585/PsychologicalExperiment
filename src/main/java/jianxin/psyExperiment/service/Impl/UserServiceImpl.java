@@ -34,4 +34,33 @@ public class UserServiceImpl implements UserService {
         }
         return ServerReturnObject.createSuccessByMessageAndData("获取成功",result);
     }
+
+    @Override
+    public ServerReturnObject register(User user) throws Exception{
+        int result = userMapper.insert(user);
+        if(result>0){
+            return ServerReturnObject.createSuccessByMessageAndData("数据添加成功",result);
+        }else{
+            throw new Exception("添加失败");
+        }
+
+    }
+
+    @Override
+    public ServerReturnObject edit(User user) {
+        Integer openId = user.getOpenId();
+        if(openId==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：openId");
+        }
+        int result = userMapper.updateByOpenId(user);
+        if(result>0)
+        {
+            return ServerReturnObject.createSuccessByMessageAndData("数据修改成功",result);
+        }
+        else{
+            return ServerReturnObject.createErrorByMessage("数据修改失败");
+        }
+
+    }
 }

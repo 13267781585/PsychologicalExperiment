@@ -9,4 +9,8 @@ public interface UserService {
     public List<User> findAllUser() throws Exception;
 
     ServerReturnObject getUser(Integer id) throws Exception;
+
+    ServerReturnObject register(User user) throws Exception;
+
+    ServerReturnObject edit(User user);
 }

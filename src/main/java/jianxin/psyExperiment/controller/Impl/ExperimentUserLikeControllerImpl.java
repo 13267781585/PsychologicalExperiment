@@ -23,4 +23,14 @@ public class ExperimentUserLikeControllerImpl implements ExperimentUserLikeContr
     public ServerReturnObject cancelCollectExp(ExperimentUserLike experimentUserLike) {
         return experimentUserLikeService.cancelCollectExp(experimentUserLike);
     }
+
+    @RequestMapping("/ifCollected")
+    public ServerReturnObject ifCollected(ExperimentUserLike experimentUserLike) {
+        return experimentUserLikeService.ifCollected(experimentUserLike);
+    }
+
+    @RequestMapping("/findCollections")
+    public ServerReturnObject findCollections(Integer userId) {
+        return experimentUserLikeService.findCollections(userId);
+    }
 }
