@@ -42,6 +42,11 @@ public class ExperimentControllerImpl implements ExperimentController {
         return experimentService.deleteExp(id);
     }
 
+    @RequestMapping("enrollmentPlus")
+    public ServerReturnObject enrollmentPlus(Integer id) {
+        return experimentService.enrollmentPlus(id);
+    }
+
 //    @RequestMapping("/collectExp")
 //    public Map collectExp(Integer experimentId, Integer userId) {
 //        Map<String,Object>map = experimentService.collectExp(experimentId,userId);

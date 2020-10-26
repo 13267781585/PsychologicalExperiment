@@ -24,4 +24,10 @@ public interface ExperimentController {
 
 //    //收藏实验
 //    public Map collectExp(Integer experimentId,Integer userId);
+    //浏览人数加一
+    public ServerReturnObject enrollmentPlus(Integer id);
+    //报名人数加一
+
+    //收藏人数加一
+
 }

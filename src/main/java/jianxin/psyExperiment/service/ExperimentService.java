@@ -17,4 +17,5 @@ public interface ExperimentService {
 
     ServerReturnObject selectById(Integer id);
 
+    ServerReturnObject enrollmentPlus(Integer id);
 }

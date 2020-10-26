@@ -32,18 +32,24 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
         {
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         }
+        Experiment exp = experimentMapper.selectByPrimaryKey(experimentUserLike.getExperimentId());
+        if(exp==null)
+        {
+            return ServerReturnObject.createErrorByMessage("收藏实验不存在");
+        }
         int result = experimentUserLikeMapper.insert(experimentUserLike);
         if(result == 1)
         {
-            Experiment exp = experimentMapper.selectByPrimaryKey(experimentUserLike.getExperimentId());
-            if(exp==null)
-            {
-                return ServerReturnObject.createErrorByMessage("收藏实验不存在");
-            }
+
             //实验收藏数加一
-            exp.setTotalLikes(exp.getTotalLikes()+1);
-            experimentMapper.updateByPrimaryKeySelective(exp);
-            return ServerReturnObject.createSuccessByMessageAndData("收藏成功",exp.getTotalLikes());
+            Integer totalLikes = exp.getTotalLikes()+1;
+            exp.setTotalLikes(totalLikes);
+            Integer flag = experimentMapper.updateByPrimaryKeySelective(exp);
+            if(flag<=0)
+                return ServerReturnObject.createErrorByMessage("收藏数加一失败");
+            Map<String,Object>map=new HashMap<>();
+            map.put("totalLikes",totalLikes);
+            return ServerReturnObject.createSuccessByMessageAndData("收藏成功",map);
         }
         else{
             return ServerReturnObject.createErrorByMessage("收藏失败");

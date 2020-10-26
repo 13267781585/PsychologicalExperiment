@@ -136,5 +136,23 @@ public class ExperimentServiceImpl implements ExperimentService {
         }
     }
 
+    @Override
+    public ServerReturnObject enrollmentPlus(Integer id) {
+        Experiment experiment = experimentMapper.selectByPrimaryKey(id);
+        if(experiment == null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：id");
+        }
+        Integer pageView = experiment.getPageView()+1;
+        experiment.setPageView(pageView);
+        Integer flag = experimentMapper.updateByPrimaryKey(experiment);
+        if(flag<=0){
+            return ServerReturnObject.createErrorByMessage("浏览数加一失败");
+        }
+        Map<String,Object>map=new HashMap<>();
+        map.put("pageView",pageView);
+        return ServerReturnObject.createSuccessByMessageAndData("浏览数加一",map);
+    }
+
 
 }

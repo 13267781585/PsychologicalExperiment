@@ -9,7 +9,9 @@ import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
@@ -57,7 +59,16 @@ public class ApplicationServiceImpl implements ApplicationService {
         Integer result = applicationMapper.insert(application);
         if(result>0)
         {
-            return ServerReturnObject.createSuccessByMessage("报名成功");
+            //报名数加一
+            Integer enrollment = experiment.getEnrollment()+1;
+            experiment.setEnrollment(enrollment);
+            Integer flag =experimentMapper.updateByPrimaryKey(experiment);
+            if(flag<=0){
+                return ServerReturnObject.createErrorByMessage("报名加一失败");
+            }
+            Map<String,Object> map=new HashMap<>();
+            map.put("enrollment",enrollment);
+            return ServerReturnObject.createSuccessByMessageAndData("报名成功",map);
         }
         else{
             return ServerReturnObject.createErrorByMessage("报名失败");
