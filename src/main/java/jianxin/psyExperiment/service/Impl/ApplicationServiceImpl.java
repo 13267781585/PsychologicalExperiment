@@ -1,0 +1,73 @@
+package jianxin.psyExperiment.service.Impl;
+
+import jianxin.psyExperiment.entity.Application;
+import jianxin.psyExperiment.entity.Experiment;
+import jianxin.psyExperiment.mapper.ApplicationMapper;
+import jianxin.psyExperiment.mapper.ExperimentMapper;
+import jianxin.psyExperiment.service.ApplicationService;
+import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ApplicationServiceImpl implements ApplicationService {
+    @Autowired
+    private ApplicationMapper applicationMapper;
+
+    @Autowired
+    private ExperimentMapper experimentMapper;
+
+    @Override
+    public ServerReturnObject sign(Application application) {
+        if(application.getCheckStatus()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：checkStatus");
+        }
+        if(application.getExperimentId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：experimentId");
+        }
+        if(application.getSignTimestamp()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：signTimestamp");
+        }
+        if(application.getTesterSchedule()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：testerSchedule");
+        }
+        if(application.getTimePeriod()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：getTimePeriod");
+        }
+        if(application.getUserId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        }
+        if(application.getUserSchedule()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：userSchedule");
+        }
+        Experiment experiment = experimentMapper.selectByPrimaryKey(application.getExperimentId());
+        if(experiment==null)
+        {
+            return ServerReturnObject.createErrorByMessage("报名实验不存在");
+        }
+        Integer result = applicationMapper.insert(application);
+        if(result>0)
+        {
+            return ServerReturnObject.createSuccessByMessage("报名成功");
+        }
+        else{
+            return ServerReturnObject.createErrorByMessage("报名失败");
+        }
+
+    }
+
+    @Override
+    public ServerReturnObject findAllRecords() {
+        List<Application> applicationList =applicationMapper.selectAll();
+        return ServerReturnObject.createSuccessByMessageAndData("获取成功",applicationList);
+    }
+}

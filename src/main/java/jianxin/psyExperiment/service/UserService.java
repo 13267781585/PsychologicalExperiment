@@ -2,6 +2,7 @@ package jianxin.psyExperiment.service;
 
 import jianxin.psyExperiment.entity.User;
 import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
