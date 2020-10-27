@@ -113,4 +113,10 @@ public interface UserMapper {
     })
     int updateByOpenId(User record);
 
+    @Select({
+            "select *",
+            " from user",
+            " where user.id = ANY(select user_id from application where experiment_id =#{experimentId,jdbcType=INTEGER})"
+    })
+    List<User> selectByExperimentId(Integer experimentId);
 }

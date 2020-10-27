@@ -28,4 +28,15 @@ public class ApplicationControllerImpl implements  ApplicationController{
     public ServerReturnObject ifSigned(Application application) {
         return applicationService.ifSigned(application);
     }
+
+    @RequestMapping("/findAllUser")
+    public ServerReturnObject findAllUser(Integer experimentId){
+        return applicationService.findAllUser(experimentId);
+    }
+
+    @RequestMapping("/getExperiment")
+    public ServerReturnObject userGetExp(Integer userId)
+    {
+        return applicationService.getExperiment(userId);
+    }
 }

@@ -9,4 +9,8 @@ public interface ApplicationService {
     ServerReturnObject findAllRecords();
 
     ServerReturnObject ifSigned(Application application);
+
+    ServerReturnObject findAllUser(Integer expId);
+
+    ServerReturnObject getExperiment(Integer userId);
 }

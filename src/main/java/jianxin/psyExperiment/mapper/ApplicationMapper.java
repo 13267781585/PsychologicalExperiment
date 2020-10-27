@@ -90,4 +90,15 @@ public interface ApplicationMapper {
             @Result(column="sign_timestamp", property="signTimestamp", jdbcType=JdbcType.INTEGER)
     })
     List<Application> selectByRecord(Application record);
+
+
+    @Select({
+            "select *",
+            "from application",
+            "where experiment_id = #{experimentId,jdbcType=INTEGER}"
+    })
+    @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER, id=true)
+    List<Application> selectByExperimentId(Integer experimentId);
+
+
 }

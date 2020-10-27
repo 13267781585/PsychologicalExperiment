@@ -13,4 +13,10 @@ public interface ApplicationController {
 
     //判断用户是否报名
     public ServerReturnObject ifSigned(Application application);
+
+    //主试获取报名被试
+    public ServerReturnObject findAllUser(Integer experimentId);
+
+    //被试获取报名实验
+    public ServerReturnObject userGetExp(Integer userId);
 }

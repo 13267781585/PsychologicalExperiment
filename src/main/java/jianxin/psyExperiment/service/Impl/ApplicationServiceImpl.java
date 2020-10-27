@@ -3,8 +3,10 @@ package jianxin.psyExperiment.service.Impl;
 import jianxin.psyExperiment.entity.Application;
 import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.entity.ExperimentUserLike;
+import jianxin.psyExperiment.entity.User;
 import jianxin.psyExperiment.mapper.ApplicationMapper;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
+import jianxin.psyExperiment.mapper.UserMapper;
 import jianxin.psyExperiment.service.ApplicationService;
 import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Autowired
     private ExperimentMapper experimentMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public ServerReturnObject sign(Application application) {
@@ -102,5 +107,33 @@ public class ApplicationServiceImpl implements ApplicationService {
         else{
             return ServerReturnObject.createSuccessByMessage("被试未报名");
         }
+    }
+
+    @Override
+    public ServerReturnObject findAllUser(Integer expId) {
+        if(expId==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：experimentId");
+        }
+        if(applicationMapper.selectByExperimentId(expId)==null)
+        {
+            return ServerReturnObject.createErrorByMessage("不存在该id实验");
+        }
+        List<User>userList=userMapper.selectByExperimentId(expId);
+        return ServerReturnObject.createSuccessByMessageAndData("被试获取成功",userList);
+    }
+
+    @Override
+    public ServerReturnObject getExperiment(Integer userId) {
+        if(userId==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        }
+        if(userMapper.selectByExperimentId(userId)==null)
+        {
+            return ServerReturnObject.createErrorByMessage("该用户不存在");
+        }
+        List<Experiment>experimentList=experimentMapper.selectByUserId(userId);
+        return ServerReturnObject.createSuccessByMessageAndData("实验获取成功",experimentList);
     }
 }
