@@ -2,6 +2,7 @@ package jianxin.psyExperiment.service.Impl;
 
 import jianxin.psyExperiment.entity.Application;
 import jianxin.psyExperiment.entity.Experiment;
+import jianxin.psyExperiment.entity.ExperimentUserLike;
 import jianxin.psyExperiment.mapper.ApplicationMapper;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
 import jianxin.psyExperiment.service.ApplicationService;
@@ -80,5 +81,26 @@ public class ApplicationServiceImpl implements ApplicationService {
     public ServerReturnObject findAllRecords() {
         List<Application> applicationList =applicationMapper.selectAll();
         return ServerReturnObject.createSuccessByMessageAndData("获取成功",applicationList);
+    }
+
+    @Override
+    public ServerReturnObject ifSigned(Application application) {
+        if(application.getExperimentId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：experimentId");
+        }
+        if(application.getUserId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        }
+
+        List<Application> result = applicationMapper.selectByRecord(application);
+        if(result != null)
+        {
+            return ServerReturnObject.createSuccessByMessageAndData("被试已报名",result);
+        }
+        else{
+            return ServerReturnObject.createSuccessByMessage("被试未报名");
+        }
     }
 }

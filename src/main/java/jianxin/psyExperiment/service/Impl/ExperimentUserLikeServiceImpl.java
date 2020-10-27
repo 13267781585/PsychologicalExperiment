@@ -75,9 +75,17 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
         if(result >= 1)
         {
             //实验收藏数减一
-            exp.setTotalLikes(exp.getTotalLikes()-1);
-            experimentMapper.updateByPrimaryKeySelective(exp);
-            return ServerReturnObject.createSuccessByMessageAndData("取消收藏成功",exp.getTotalLikes());
+            Integer totalLikes = exp.getTotalLikes()-1;
+
+            exp.setTotalLikes(totalLikes);
+            int flag = experimentMapper.updateByPrimaryKeySelective(exp);
+            if(flag<=0)
+            {
+                return ServerReturnObject.createErrorByMessage("收藏数减一失败");
+            }
+            Map<String,Object>map=new HashMap<>();
+            map.put("totalLikes",totalLikes);
+            return ServerReturnObject.createSuccessByMessageAndData("取消收藏成功",map);
         }
         else{
             return ServerReturnObject.createErrorByMessage("取消收藏失败");
@@ -95,10 +103,9 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         }
 
-        ExperimentUserLike result = experimentUserLikeMapper.selectByRecord(experimentUserLike);
+        List<ExperimentUserLike> result = experimentUserLikeMapper.selectByRecord(experimentUserLike);
         if(result != null)
         {
-            //实验收藏数减一
             return ServerReturnObject.createSuccessByMessageAndData("已收藏",result);
         }
         else{

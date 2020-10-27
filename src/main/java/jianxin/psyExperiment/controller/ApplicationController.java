@@ -10,4 +10,7 @@ public interface ApplicationController {
 
     //获取所有报名记录
     public ServerReturnObject findAllRecords();
+
+    //判断用户是否报名
+    public ServerReturnObject ifSigned(Application application);
 }

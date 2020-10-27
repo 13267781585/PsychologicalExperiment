@@ -23,4 +23,9 @@ public class ApplicationControllerImpl implements  ApplicationController{
     public ServerReturnObject findAllRecords() {
         return applicationService.findAllRecords();
     }
+
+    @RequestMapping("ifSigned")
+    public ServerReturnObject ifSigned(Application application) {
+        return applicationService.ifSigned(application);
+    }
 }

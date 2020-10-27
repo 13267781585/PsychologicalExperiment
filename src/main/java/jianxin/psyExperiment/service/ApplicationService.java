@@ -7,4 +7,6 @@ public interface ApplicationService {
     ServerReturnObject sign(Application application);
 
     ServerReturnObject findAllRecords();
+
+    ServerReturnObject ifSigned(Application application);
 }

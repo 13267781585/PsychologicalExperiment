@@ -70,7 +70,7 @@ public interface ExperimentUserLikeMapper {
             @Result(column="experiment_id", property="experimentId", jdbcType=JdbcType.INTEGER),
             @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER)
     })
-    ExperimentUserLike selectByRecord(ExperimentUserLike record);
+    List<ExperimentUserLike> selectByRecord(ExperimentUserLike record);
 
     @UpdateProvider(type=ExperimentUserLikeSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(ExperimentUserLike record);
