@@ -115,15 +115,21 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
 
     @Override
     public ServerReturnObject findCollections(Integer userId) {
-        List<Integer> idList = experimentUserLikeMapper.selectByUserId(userId);
-
-        List<Experiment> experimentList = new ArrayList<Experiment>();
-        Experiment temp;
-        for(int i = 0;i<idList.size();i++)
+        if(userId==null)
         {
-            temp = experimentMapper.selectByPrimaryKey(idList.get(i));
-            experimentList.add(temp);
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
         }
+//               List<Integer> idList = experimentUserLikeMapper.selectByUserId(userId);
+//
+//        List<Experiment> experimentList = new ArrayList<Experiment>();
+//        Experiment temp;
+//        for(int i = 0;i<idList.size();i++)
+//        {
+//            temp = experimentMapper.selectByPrimaryKey(idList.get(i));
+//            experimentList.add(temp);
+//        }
+//        return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",experimentList);
+        List<Experiment>experimentList=experimentUserLikeMapper.selectByCollectedUserId(userId);
         return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",experimentList);
 
     }

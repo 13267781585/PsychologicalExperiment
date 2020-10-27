@@ -1,5 +1,6 @@
 package jianxin.psyExperiment.mapper;
 
+import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.entity.ExperimentUserLike;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
@@ -82,4 +83,11 @@ public interface ExperimentUserLikeMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(ExperimentUserLike record);
+
+    @Select({
+            "select *",
+            "from experiment",
+            "where experiment.id = ANY(select experiment_id from experiment_user_like where user_id =#{userId,jdbcType=INTEGER})"
+    })
+    List<Experiment> selectByCollectedUserId(Integer userId);
 }
