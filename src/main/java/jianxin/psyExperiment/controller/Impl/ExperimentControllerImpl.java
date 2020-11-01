@@ -42,9 +42,9 @@ public class ExperimentControllerImpl implements ExperimentController {
         return experimentService.deleteExp(id);
     }
 
-    @RequestMapping("enrollmentPlus")
-    public ServerReturnObject enrollmentPlus(Integer id) {
-        return experimentService.enrollmentPlus(id);
+    @RequestMapping("PageViewPlus")
+    public ServerReturnObject PageViewPlus(Integer id) {
+        return experimentService.PageViewPlus(id);
     }
 
 //    @RequestMapping("/collectExp")

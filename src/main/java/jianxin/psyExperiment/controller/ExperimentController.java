@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ExperimentController {
+
     public ServerReturnObject findAllExperiment();
 
     //发布实验
@@ -25,7 +26,7 @@ public interface ExperimentController {
 //    //收藏实验
 //    public Map collectExp(Integer experimentId,Integer userId);
     //浏览人数加一
-    public ServerReturnObject enrollmentPlus(Integer id);
+    public ServerReturnObject PageViewPlus(Integer id);
     //报名人数加一
 
     //收藏人数加一

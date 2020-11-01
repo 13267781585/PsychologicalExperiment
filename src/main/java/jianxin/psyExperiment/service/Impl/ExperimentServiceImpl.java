@@ -117,7 +117,7 @@ public class ExperimentServiceImpl implements ExperimentService {
             return ServerReturnObject.createSuccessByMessage("实验删除成功");
         }
         else{
-            return ServerReturnObject.createErrorByMessage("指定实验不存在");
+            return ServerReturnObject.createErrorByMessage("实验删除失败");
         }
     }
 
@@ -137,7 +137,7 @@ public class ExperimentServiceImpl implements ExperimentService {
     }
 
     @Override
-    public ServerReturnObject enrollmentPlus(Integer id) {
+    public ServerReturnObject PageViewPlus(Integer id) {
         Experiment experiment = experimentMapper.selectByPrimaryKey(id);
         if(experiment == null)
         {
