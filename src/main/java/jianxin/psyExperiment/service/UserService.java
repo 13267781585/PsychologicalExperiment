@@ -14,4 +14,8 @@ public interface UserService {
     ServerReturnObject register(User user) throws Exception;
 
     ServerReturnObject edit(User user)throws Exception;
+
+    public ServerReturnObject coinsInc(Integer userId,Integer increase);
+
+    public ServerReturnObject coinsDec(Integer userId,Integer decrease);
 }

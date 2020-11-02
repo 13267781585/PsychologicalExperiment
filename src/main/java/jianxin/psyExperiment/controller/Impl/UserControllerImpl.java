@@ -41,4 +41,13 @@ public class UserControllerImpl implements UserController {
         return userService.edit(user);
     }
 
+    @RequestMapping("/coinsIncrease")
+    public ServerReturnObject coinsInc(Integer userId, Integer increase) {
+        return userService.coinsInc(userId,increase);
+    }
+
+    @RequestMapping("/coinsDecrease")
+    public ServerReturnObject coinsDec(Integer userId, Integer decrease) {
+        return userService.coinsDec(userId,decrease);
+    }
 }

@@ -17,4 +17,10 @@ public interface UserController {
 
     //编辑用户信息
     ServerReturnObject edit(User user)throws Exception;
+
+    //用户代币增加
+    public ServerReturnObject coinsInc(Integer userId,Integer increase);
+
+    //用户代币减少
+    public ServerReturnObject coinsDec(Integer userId,Integer decrease);
 }

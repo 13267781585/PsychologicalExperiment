@@ -66,4 +66,50 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Override
+    public ServerReturnObject coinsInc(Integer userId, Integer increase) {
+        if(userId==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        if(increase==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：increase");
+        if(userMapper.selectByPrimaryKey(userId)==null)
+            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
+        User user=userMapper.selectByPrimaryKey(userId);
+        Integer coins = user.getCoins()+increase;
+        user.setCoins(coins);
+        Integer flag=userMapper.updateByPrimaryKey(user);
+        if(flag>0)
+        {
+                return ServerReturnObject.createSuccessByMessageAndData("代币增加成功",coins);
+        }
+        else{
+            return ServerReturnObject.createErrorByMessage("代币增加失败");
+        }
+
+    }
+
+    @Override
+    public ServerReturnObject coinsDec(Integer userId, Integer decrease) {
+        if(userId==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        if(decrease==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：decrease");
+        if(userMapper.selectByPrimaryKey(userId)==null)
+            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
+        User user=userMapper.selectByPrimaryKey(userId);
+        Integer coins = user.getCoins()-decrease;
+        if(coins<0)
+            coins=0;
+        user.setCoins(coins);
+        Integer flag=userMapper.updateByPrimaryKey(user);
+        if(flag>0)
+        {
+            return ServerReturnObject.createSuccessByMessageAndData("代币减少成功",coins);
+        }
+        else{
+            return ServerReturnObject.createErrorByMessage("代币减少失败");
+        }
+
+    }
 }
