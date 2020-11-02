@@ -112,4 +112,48 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Override
+    public ServerReturnObject creditScoreInc(Integer userId, Float increase) {
+        if(userId==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        if(increase==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：increase");
+        if(userMapper.selectByPrimaryKey(userId)==null)
+            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
+        User user=userMapper.selectByPrimaryKey(userId);
+        Float score = user.getCreditScore()+increase;
+        user.setCreditScore(score);
+        Integer flag=userMapper.updateByPrimaryKey(user);
+        if(flag>0)
+        {
+            return ServerReturnObject.createSuccessByMessageAndData("信誉分增加成功",score);
+        }
+        else{
+            return ServerReturnObject.createErrorByMessage("信誉分增加失败");
+        }
+    }
+
+    @Override
+    public ServerReturnObject creditScoreDec(Integer userId, Float decrease) {
+        if(userId==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        if(decrease==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：decrease");
+        if(userMapper.selectByPrimaryKey(userId)==null)
+            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
+        User user=userMapper.selectByPrimaryKey(userId);
+        Float score=user.getCreditScore()-decrease;
+        if(score<0)
+            score=0f;
+        user.setCreditScore(score);
+        Integer flag=userMapper.updateByPrimaryKey(user);
+        if(flag>0)
+        {
+            return ServerReturnObject.createSuccessByMessageAndData("信誉分减少成功",score);
+        }
+        else{
+            return ServerReturnObject.createErrorByMessage("信誉分减少失败");
+        }
+    }
 }

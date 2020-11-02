@@ -15,7 +15,11 @@ public interface UserService {
 
     ServerReturnObject edit(User user)throws Exception;
 
-    public ServerReturnObject coinsInc(Integer userId,Integer increase);
+    ServerReturnObject coinsInc(Integer userId,Integer increase);
 
-    public ServerReturnObject coinsDec(Integer userId,Integer decrease);
+    ServerReturnObject coinsDec(Integer userId,Integer decrease);
+
+    ServerReturnObject creditScoreInc(Integer userId, Float increase);
+
+    ServerReturnObject creditScoreDec(Integer userId, Float decrease);
 }

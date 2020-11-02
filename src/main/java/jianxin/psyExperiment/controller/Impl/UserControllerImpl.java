@@ -50,4 +50,14 @@ public class UserControllerImpl implements UserController {
     public ServerReturnObject coinsDec(Integer userId, Integer decrease) {
         return userService.coinsDec(userId,decrease);
     }
+
+    @RequestMapping("/creditScoreIncrease")
+    public ServerReturnObject creditScoreInc(Integer userId, Float increase) {
+        return userService.creditScoreInc(userId,increase);
+    }
+
+    @RequestMapping("/creditScoreDecrease")
+    public ServerReturnObject creditScoreDec(Integer userId, Float decrease) {
+        return userService.creditScoreDec(userId,decrease);
+    }
 }

@@ -23,4 +23,12 @@ public interface UserController {
 
     //用户代币减少
     public ServerReturnObject coinsDec(Integer userId,Integer decrease);
+
+    //用户信誉分增加
+    public ServerReturnObject creditScoreInc(Integer userId,Float increase);
+
+    //用户信誉分减少
+    public ServerReturnObject creditScoreDec(Integer userId,Float decrease);
+
+
 }
