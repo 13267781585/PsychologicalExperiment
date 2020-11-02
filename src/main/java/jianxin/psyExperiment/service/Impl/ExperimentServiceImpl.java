@@ -26,7 +26,7 @@ public class ExperimentServiceImpl implements ExperimentService {
     }
 
     @Override
-    public ServerReturnObject insertExperiment(Experiment experiment) {
+    public ServerReturnObject insertExperiment(Experiment experiment) throws Exception{
 
         if(experiment.getTesterId()==null)
         {
@@ -106,7 +106,7 @@ public class ExperimentServiceImpl implements ExperimentService {
     }
 
     @Override
-    public ServerReturnObject deleteExp(Integer id) {
+    public ServerReturnObject deleteExp(Integer id) throws Exception{
         if(id==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：id");
@@ -137,7 +137,7 @@ public class ExperimentServiceImpl implements ExperimentService {
     }
 
     @Override
-    public ServerReturnObject PageViewPlus(Integer id) {
+    public ServerReturnObject PageViewPlus(Integer id) throws Exception{
         Experiment experiment = experimentMapper.selectByPrimaryKey(id);
         if(experiment == null)
         {

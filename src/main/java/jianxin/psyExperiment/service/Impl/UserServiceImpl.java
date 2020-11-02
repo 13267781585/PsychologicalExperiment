@@ -37,6 +37,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServerReturnObject register(User user) throws Exception{
+        if(user.getOpenId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：openId");
+        }
         int result = userMapper.insert(user);
         if(result>0){
             return ServerReturnObject.createSuccessByMessageAndData("数据添加成功",result);
@@ -47,13 +51,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject edit(User user) {
-        Integer openId = user.getOpenId();
-        if(openId==null)
+    public ServerReturnObject edit(User user) throws Exception{
+        if(user.getId()==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：openId");
         }
-        int result = userMapper.updateByOpenId(user);
+        int result = userMapper.updateByPrimaryKey(user);
         if(result>0)
         {
             return ServerReturnObject.createSuccessByMessageAndData("数据修改成功",result);

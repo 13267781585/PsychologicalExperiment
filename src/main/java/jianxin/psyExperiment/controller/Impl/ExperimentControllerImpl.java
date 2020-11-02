@@ -22,7 +22,7 @@ public class ExperimentControllerImpl implements ExperimentController {
     }
 
     @RequestMapping(value="/insertExperiment")
-    public ServerReturnObject insertExperiment(Experiment experiment){
+    public ServerReturnObject insertExperiment(Experiment experiment) throws Exception {
        return experimentService.insertExperiment(experiment);
     }
 
@@ -37,13 +37,13 @@ public class ExperimentControllerImpl implements ExperimentController {
     }
 
     @RequestMapping("/deleteExp")
-    public ServerReturnObject deleteExp(Integer id){
+    public ServerReturnObject deleteExp(Integer id) throws Exception {
 
         return experimentService.deleteExp(id);
     }
 
     @RequestMapping("PageViewPlus")
-    public ServerReturnObject PageViewPlus(Integer id) {
+    public ServerReturnObject PageViewPlus(Integer id) throws Exception {
         return experimentService.PageViewPlus(id);
     }
 

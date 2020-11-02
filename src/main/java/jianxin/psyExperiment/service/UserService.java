@@ -13,5 +13,5 @@ public interface UserService {
 
     ServerReturnObject register(User user) throws Exception;
 
-    ServerReturnObject edit(User user);
+    ServerReturnObject edit(User user)throws Exception;
 }

@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface ExperimentController {
-
+    //获取所有实验
     public ServerReturnObject findAllExperiment();
 
     //发布实验
-    public ServerReturnObject insertExperiment(Experiment experiment);
+    public ServerReturnObject insertExperiment(Experiment experiment) throws Exception;
 
     //获取指定id的实验接口
     public ServerReturnObject selectById(Integer id);
@@ -21,12 +21,12 @@ public interface ExperimentController {
     public ServerReturnObject getTesterExp(Integer testerId);
 
     //删除指定id实验
-    public ServerReturnObject deleteExp(Integer id);
+    public ServerReturnObject deleteExp(Integer id) throws Exception;
 
 //    //收藏实验
 //    public Map collectExp(Integer experimentId,Integer userId);
     //浏览人数加一
-    public ServerReturnObject PageViewPlus(Integer id);
+    public ServerReturnObject PageViewPlus(Integer id) throws Exception;
     //报名人数加一
 
     //收藏人数加一

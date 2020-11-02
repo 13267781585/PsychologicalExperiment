@@ -37,7 +37,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @RequestMapping("/edit")
-    public ServerReturnObject edit(User user) {
+    public ServerReturnObject edit(User user)throws Exception {
         return userService.edit(user);
     }
 

@@ -16,5 +16,5 @@ public interface UserController {
     ServerReturnObject register(User user)throws Exception;
 
     //编辑用户信息
-    ServerReturnObject edit(User user);
+    ServerReturnObject edit(User user)throws Exception;
 }
