@@ -13,4 +13,8 @@ public interface ApplicationService {
     ServerReturnObject findAllUser(Integer expId);
 
     ServerReturnObject getExperiment(Integer userId);
+
+    ServerReturnObject userCheck(Integer id,String userSchedule);
+
+    ServerReturnObject testerCheck(Integer id,String testerSchedule);
 }

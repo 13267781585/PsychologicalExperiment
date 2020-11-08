@@ -19,4 +19,10 @@ public interface ApplicationController {
 
     //被试获取报名实验
     public ServerReturnObject userGetExp(Integer userId);
+
+    //被试确认完成接口
+    public ServerReturnObject userCheck(Integer id,String userSchedule);
+
+    //主试确认完成接口
+    public ServerReturnObject testerCheck(Integer id,String testerSchedule);
 }

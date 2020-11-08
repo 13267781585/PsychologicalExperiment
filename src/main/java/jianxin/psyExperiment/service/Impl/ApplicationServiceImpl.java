@@ -136,4 +136,64 @@ public class ApplicationServiceImpl implements ApplicationService {
         List<Experiment>experimentList=experimentMapper.selectByUserId(userId);
         return ServerReturnObject.createSuccessByMessageAndData("实验获取成功",experimentList);
     }
+
+    @Override
+    public ServerReturnObject userCheck(Integer id, String userSchedule) {
+        if(id==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：id");
+        }
+        if(userSchedule==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：userSchedule");
+        }
+        Application record=applicationMapper.selectByPrimaryKey(id);
+        if(record==null)
+        {
+            return ServerReturnObject.createErrorByMessage("报名不存在");
+        }
+        if(userSchedule.equals("已完成"))
+        {
+            record.setUserSchedule("已完成");
+            applicationMapper.updateByPrimaryKey(record);
+            return ServerReturnObject.createSuccessByMessageAndData("被试确认完成", record);
+        }
+        else if(userSchedule.equals("未完成"))
+        {
+            record.setUserSchedule("未完成");
+            applicationMapper.updateByPrimaryKey(record);
+            return ServerReturnObject.createSuccessByMessageAndData("被试确认未完成", record);
+        }
+        return ServerReturnObject.createErrorByMessage("被试确认失败");
+    }
+
+    @Override
+    public ServerReturnObject testerCheck(Integer id, String testerSchedule) {
+        if(id==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：id");
+        }
+        if(testerSchedule==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：testerSchedule");
+        }
+        Application record=applicationMapper.selectByPrimaryKey(id);
+        if(record==null)
+        {
+            return ServerReturnObject.createErrorByMessage("报名不存在");
+        }
+        if(testerSchedule.equals("已完成"))
+        {
+            record.setTesterSchedule("已完成");
+            applicationMapper.updateByPrimaryKey(record);
+            return ServerReturnObject.createSuccessByMessageAndData("主试确认完成", record);
+        }
+        else if(testerSchedule.equals("未完成"))
+        {
+            record.setTesterSchedule("未完成");
+            applicationMapper.updateByPrimaryKey(record);
+            return ServerReturnObject.createSuccessByMessageAndData("主试确认未完成", record);
+        }
+        return ServerReturnObject.createErrorByMessage("主试确认失败");
+    }
 }

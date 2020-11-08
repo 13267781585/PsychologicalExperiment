@@ -39,4 +39,14 @@ public class ApplicationControllerImpl implements  ApplicationController{
     {
         return applicationService.getExperiment(userId);
     }
+
+    @RequestMapping("/userCheck")
+    public ServerReturnObject userCheck(Integer id, String userSchedule) {
+        return applicationService.userCheck(id,userSchedule);
+    }
+
+    @RequestMapping("/testerCheck")
+    public ServerReturnObject testerCheck(Integer id, String testerSchedule) {
+        return applicationService.testerCheck(id,testerSchedule);
+    }
 }
