@@ -136,4 +136,11 @@ public interface ExperimentMapper {
             @Result(column="time_periods", property="timePeriods", jdbcType=JdbcType.VARCHAR)
     })
     List<Experiment> selectByTesterId(Integer testerId);
+
+    @Select({
+            "select *",
+            "from experiment",
+            "where experiment.id = ANY(select experiment_id from application where user_id =#{userId,jdbcType=INTEGER})"
+    })
+    List<Experiment> selectByUserId(Integer userId);
 }

@@ -2,35 +2,35 @@ package jianxin.psyExperiment.support.returnEntity;
 
 import java.io.Serializable;
 
-public class ServerReturnEntity implements Serializable {
+public class ServerReturnObject implements Serializable {
     private int code;
     private String message;
     private Object data;
 
-    private ServerReturnEntity(int code, String message, Object data) {
+    private ServerReturnObject(int code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public static ServerReturnEntity createErrorByMessage(String msg)
+    public static ServerReturnObject createErrorByMessage(String msg)
     {
-        return new ServerReturnEntity(-1,msg,null);
+        return new ServerReturnObject(-1,msg,null);
     }
 
-    public static ServerReturnEntity createSuccessByData(Object data)
+    public static ServerReturnObject createSuccessByData(Object data)
     {
-        return new ServerReturnEntity(1,null,data);
+        return new ServerReturnObject(1,null,data);
     }
 
-    public static ServerReturnEntity createSuccessByMessage(String msg)
+    public static ServerReturnObject createSuccessByMessage(String msg)
     {
-        return new ServerReturnEntity(1,msg,null);
+        return new ServerReturnObject(1,msg,null);
     }
 
-    public static ServerReturnEntity createSuccessByMessageAndData(String msg, Object data)
+    public static ServerReturnObject createSuccessByMessageAndData(String msg, Object data)
     {
-        return new ServerReturnEntity(1,msg,data);
+        return new ServerReturnObject(1,msg,data);
     }
 
     public int getCode() {

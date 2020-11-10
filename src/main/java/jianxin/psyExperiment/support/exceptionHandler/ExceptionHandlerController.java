@@ -1,6 +1,6 @@
 package jianxin.psyExperiment.support.exceptionHandler;
 
-import jianxin.psyExperiment.support.returnEntity.ServerReturnEntity;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 public class ExceptionHandlerController {
     @ExceptionHandler(value = Exception.class)
-    public ServerReturnEntity handlerException(Exception e)
+    public ServerReturnObject handlerException(Exception e)
     {
-        return ServerReturnEntity.createErrorByMessage(e.getMessage());
+        return ServerReturnObject.createErrorByMessage(e.getMessage());
     }
 }

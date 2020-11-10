@@ -3,7 +3,7 @@ package jianxin.psyExperiment.controller.Impl;
 import jianxin.psyExperiment.controller.UserController;
 import jianxin.psyExperiment.entity.User;
 import jianxin.psyExperiment.service.UserService;
-import jianxin.psyExperiment.support.returnEntity.ServerReturnEntity;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,38 @@ public class UserControllerImpl implements UserController {
     }
 
     @RequestMapping("/getUser")
-    public ServerReturnEntity getUser(Integer id)throws Exception{
+    public ServerReturnObject getUser(Integer id)throws Exception{
         LOGGER.info("==================println======================");
         return userService.getUser(id);
+    }
+
+    @RequestMapping("/register")
+    public ServerReturnObject register(User user) throws Exception {
+        return userService.register(user);
+    }
+
+    @RequestMapping("/edit")
+    public ServerReturnObject edit(User user)throws Exception {
+        return userService.edit(user);
+    }
+
+    @RequestMapping("/coinsIncrease")
+    public ServerReturnObject coinsInc(Integer userId, Integer increase) {
+        return userService.coinsInc(userId,increase);
+    }
+
+    @RequestMapping("/coinsDecrease")
+    public ServerReturnObject coinsDec(Integer userId, Integer decrease) {
+        return userService.coinsDec(userId,decrease);
+    }
+
+    @RequestMapping("/creditScoreIncrease")
+    public ServerReturnObject creditScoreInc(Integer userId, Float increase) {
+        return userService.creditScoreInc(userId,increase);
+    }
+
+    @RequestMapping("/creditScoreDecrease")
+    public ServerReturnObject creditScoreDec(Integer userId, Float decrease) {
+        return userService.creditScoreDec(userId,decrease);
     }
 }
