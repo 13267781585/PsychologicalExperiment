@@ -3,7 +3,7 @@ package jianxin.psyExperiment.service.Impl;
 import jianxin.psyExperiment.entity.User;
 import jianxin.psyExperiment.mapper.UserMapper;
 import jianxin.psyExperiment.service.UserService;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject getUser(Integer id) throws Exception {
+    public ServerReturnEntity getUser(Integer id) throws Exception {
         //throw new Exception("11111");
         if(id==null)
         {
@@ -32,6 +32,6 @@ public class UserServiceImpl implements UserService {
         {
             throw new Exception("获取失败：指定id用户不存在");
         }
-        return ServerReturnObject.createSuccessByMessageAndData("获取成功",result);
+        return ServerReturnEntity.createSuccessByMessageAndData("获取成功",result);
     }
 }

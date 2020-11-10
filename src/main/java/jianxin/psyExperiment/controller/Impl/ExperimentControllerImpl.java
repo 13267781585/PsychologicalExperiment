@@ -3,7 +3,7 @@ package jianxin.psyExperiment.controller.Impl;
 import jianxin.psyExperiment.controller.ExperimentController;
 import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.service.ExperimentService;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +17,7 @@ public class ExperimentControllerImpl implements ExperimentController {
     private ExperimentService experimentService;
 
     @RequestMapping("/getAllExp")
-    public ServerReturnObject getAllExp(){
+    public ServerReturnEntity getAllExp(){
         return experimentService.getAllExp();
     }
 
@@ -35,12 +35,12 @@ public class ExperimentControllerImpl implements ExperimentController {
     }
 
     @RequestMapping("/getTesterExp")
-    public ServerReturnObject getTesterExp(Integer testerId) {
+    public ServerReturnEntity getTesterExp(Integer testerId) {
         return experimentService.getTesterExp(testerId);
     }
 
     @RequestMapping("/deleteExp")
-    public ServerReturnObject deleteExp(Integer id){
+    public ServerReturnEntity deleteExp(Integer id){
 
         return experimentService.deleteExp(id);
     }

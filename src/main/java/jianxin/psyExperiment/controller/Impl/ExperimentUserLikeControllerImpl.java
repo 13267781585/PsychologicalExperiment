@@ -2,9 +2,8 @@ package jianxin.psyExperiment.controller.Impl;
 
 import jianxin.psyExperiment.controller.ExperimentUserLikeController;
 import jianxin.psyExperiment.entity.ExperimentUserLike;
-import jianxin.psyExperiment.service.ExperimentService;
 import jianxin.psyExperiment.service.ExperimentUserLikeService;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,12 +14,12 @@ public class ExperimentUserLikeControllerImpl implements ExperimentUserLikeContr
     private ExperimentUserLikeService experimentUserLikeService;
 
     @RequestMapping("/collectExp")
-    public ServerReturnObject collectExp(ExperimentUserLike experimentUserLike) {
+    public ServerReturnEntity collectExp(ExperimentUserLike experimentUserLike) {
         return experimentUserLikeService.collectExp(experimentUserLike);
     }
 
     @RequestMapping("/cancelCollectExp")
-    public ServerReturnObject cancelCollectExp(ExperimentUserLike experimentUserLike) {
+    public ServerReturnEntity cancelCollectExp(ExperimentUserLike experimentUserLike) {
         return experimentUserLikeService.cancelCollectExp(experimentUserLike);
     }
 }

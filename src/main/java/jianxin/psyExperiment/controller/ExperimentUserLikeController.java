@@ -3,12 +3,12 @@ package jianxin.psyExperiment.controller;
 
 
 import jianxin.psyExperiment.entity.ExperimentUserLike;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnEntity;
 
 public interface ExperimentUserLikeController {
     //收藏实验
-    public ServerReturnObject collectExp(ExperimentUserLike experimentUserLike);
+    public ServerReturnEntity collectExp(ExperimentUserLike experimentUserLike);
 
     //取消收藏
-    public ServerReturnObject cancelCollectExp(ExperimentUserLike experimentUserLike);
+    public ServerReturnEntity cancelCollectExp(ExperimentUserLike experimentUserLike);
 }

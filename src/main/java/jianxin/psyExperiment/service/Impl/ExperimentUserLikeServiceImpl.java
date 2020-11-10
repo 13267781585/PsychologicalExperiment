@@ -5,12 +5,10 @@ import jianxin.psyExperiment.entity.ExperimentUserLike;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
 import jianxin.psyExperiment.mapper.ExperimentUserLikeMapper;
 import jianxin.psyExperiment.service.ExperimentUserLikeService;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
 @Service
 public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService {
 
@@ -21,14 +19,14 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
     private ExperimentMapper experimentMapper;
 
     @Override
-    public ServerReturnObject collectExp(ExperimentUserLike experimentUserLike) {
+    public ServerReturnEntity collectExp(ExperimentUserLike experimentUserLike) {
         if(experimentUserLike.getExperimentId()==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：experimentId");
+            return ServerReturnEntity.createErrorByMessage("参数不足：experimentId");
         }
         if(experimentUserLike.getUserId()==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+            return ServerReturnEntity.createErrorByMessage("参数不足：userId");
         }
         int result = experimentUserLikeMapper.insert(experimentUserLike);
         if(result == 1)
@@ -36,32 +34,32 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
             Experiment exp = experimentMapper.selectByPrimaryKey(experimentUserLike.getExperimentId());
             if(exp==null)
             {
-                return ServerReturnObject.createErrorByMessage("收藏实验不存在");
+                return ServerReturnEntity.createErrorByMessage("收藏实验不存在");
             }
             //实验收藏数加一
             exp.setTotalLikes(exp.getTotalLikes()+1);
             experimentMapper.updateByPrimaryKeySelective(exp);
-            return ServerReturnObject.createSuccessByMessageAndData("收藏成功",exp.getTotalLikes());
+            return ServerReturnEntity.createSuccessByMessageAndData("收藏成功",exp.getTotalLikes());
         }
         else{
-            return ServerReturnObject.createErrorByMessage("收藏失败");
+            return ServerReturnEntity.createErrorByMessage("收藏失败");
         }
     }
 
     @Override
-    public ServerReturnObject cancelCollectExp(ExperimentUserLike experimentUserLike) {
+    public ServerReturnEntity cancelCollectExp(ExperimentUserLike experimentUserLike) {
         if(experimentUserLike.getExperimentId()==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：experimentId");
+            return ServerReturnEntity.createErrorByMessage("参数不足：experimentId");
         }
         if(experimentUserLike.getUserId()==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+            return ServerReturnEntity.createErrorByMessage("参数不足：userId");
         }
         Experiment exp = experimentMapper.selectByPrimaryKey(experimentUserLike.getExperimentId());
         if(exp==null)
         {
-            return ServerReturnObject.createErrorByMessage("收藏实验不存在");
+            return ServerReturnEntity.createErrorByMessage("收藏实验不存在");
         }
         int result = experimentUserLikeMapper.deleteByRecord(experimentUserLike);
         if(result >= 1)
@@ -69,10 +67,10 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
             //实验收藏数减一
             exp.setTotalLikes(exp.getTotalLikes()-1);
             experimentMapper.updateByPrimaryKeySelective(exp);
-            return ServerReturnObject.createSuccessByMessageAndData("取消收藏成功",exp.getTotalLikes());
+            return ServerReturnEntity.createSuccessByMessageAndData("取消收藏成功",exp.getTotalLikes());
         }
         else{
-            return ServerReturnObject.createErrorByMessage("取消收藏失败");
+            return ServerReturnEntity.createErrorByMessage("取消收藏失败");
         }
     }
 }

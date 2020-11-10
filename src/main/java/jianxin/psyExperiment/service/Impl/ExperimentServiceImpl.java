@@ -2,15 +2,12 @@ package jianxin.psyExperiment.service.Impl;
 
 import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
-import jianxin.psyExperiment.mapper.UserMapper;
 import jianxin.psyExperiment.service.ExperimentService;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ExperimentServiceImpl implements ExperimentService {
@@ -19,10 +16,10 @@ public class ExperimentServiceImpl implements ExperimentService {
 
 
     @Override
-    public ServerReturnObject getAllExp() {
+    public ServerReturnEntity getAllExp() {
         List<Experiment> result = experimentMapper.selectAll();
 
-        return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",result);
+        return ServerReturnEntity.createSuccessByMessageAndData("数据获取成功",result);
     }
 
     @Override
@@ -32,30 +29,30 @@ public class ExperimentServiceImpl implements ExperimentService {
     }
 
     @Override
-    public ServerReturnObject getTesterExp(Integer testerId) {
+    public ServerReturnEntity getTesterExp(Integer testerId) {
 
         if(testerId==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：testerId");
+            return ServerReturnEntity.createErrorByMessage("参数不足：testerId");
         }
         List<Experiment> result = experimentMapper.selectByTesterId(testerId);
-        return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",result);
+        return ServerReturnEntity.createSuccessByMessageAndData("数据获取成功",result);
 
     }
 
     @Override
-    public ServerReturnObject deleteExp(Integer id) {
+    public ServerReturnEntity deleteExp(Integer id) {
         if(id==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：id");
+            return ServerReturnEntity.createErrorByMessage("参数不足：id");
         }
 
         int result = experimentMapper.deleteByPrimaryKey(id);
         if(result==1){
-            return ServerReturnObject.createSuccessByMessage("实验删除成功");
+            return ServerReturnEntity.createSuccessByMessage("实验删除成功");
         }
         else{
-            return ServerReturnObject.createErrorByMessage("指定实验不存在");
+            return ServerReturnEntity.createErrorByMessage("指定实验不存在");
         }
     }
 
