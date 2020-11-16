@@ -4,6 +4,8 @@ package jianxin.psyExperiment.controller;
 import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 
+import java.util.Map;
+
 public interface ExperimentController {
 
     //发布实验
@@ -21,8 +23,7 @@ public interface ExperimentController {
 //    public Map collectExp(Integer experimentId,Integer userId);
     //浏览人数加一
     public ServerReturnObject PageViewPlus(Integer id) throws Exception;
-    //报名人数加一
 
-    //收藏人数加一
-
+    //按照条件搜索实验
+    ServerReturnObject selectExperimentByExample(Map<String,String> example);
 }

@@ -2,7 +2,7 @@ package jianxin.psyExperiment.service.Impl;
 import jianxin.psyExperiment.entity.CancelTimePeriod;
 import jianxin.psyExperiment.mapper.CancelTimePeriodMapper;
 import jianxin.psyExperiment.service.CancelTimePeriodService;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

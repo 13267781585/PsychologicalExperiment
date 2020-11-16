@@ -5,9 +5,21 @@ import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ExperimentMapper {
+    /*
+         接口
+         "keWord":""  关键字搜索
+         "type":""  实验类型
+         "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
+         "pageNum":""   分页开始位置
+         "pageSize":""     一页的记录数
+       */
+    @SelectProvider(type=ExperimentSqlProvider.class, method="selectByExample")
+    List<Experiment> selectByExample(Map<String,String> example);
+
     @Delete({
         "delete from experiment",
         "where id = #{id,jdbcType=INTEGER}"

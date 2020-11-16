@@ -8,7 +8,7 @@ import jianxin.psyExperiment.mapper.ApplicationMapper;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
 import jianxin.psyExperiment.mapper.UserMapper;
 import jianxin.psyExperiment.service.ApplicationService;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

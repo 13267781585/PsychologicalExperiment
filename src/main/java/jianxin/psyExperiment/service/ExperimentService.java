@@ -3,6 +3,8 @@ package jianxin.psyExperiment.service;
 import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 
+import java.util.Map;
+
 public interface ExperimentService {
     ServerReturnObject findAllExperiment();
 
@@ -15,4 +17,6 @@ public interface ExperimentService {
     ServerReturnObject selectById(Integer id);
 
     ServerReturnObject PageViewPlus(Integer id) throws Exception;
+    //按照条件搜索实验
+    ServerReturnObject selectExperimentByExample(Map<String,String> example);
 }

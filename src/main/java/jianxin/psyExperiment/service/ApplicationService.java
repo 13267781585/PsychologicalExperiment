@@ -1,7 +1,7 @@
 package jianxin.psyExperiment.service;
 
 import jianxin.psyExperiment.entity.Application;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 
 public interface ApplicationService {
     ServerReturnObject sign(Application application);

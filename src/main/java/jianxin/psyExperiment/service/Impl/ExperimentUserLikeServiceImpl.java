@@ -8,13 +8,9 @@ import jianxin.psyExperiment.service.ExperimentUserLikeService;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-<<<<<<< HEAD
-=======
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
->>>>>>> ea4a05a7c8c1d3ef24cc668f76ef00c57d7c8fd3
 @Service
 public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService {
 
@@ -42,18 +38,6 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
         int result = experimentUserLikeMapper.insert(experimentUserLike);
         if(result == 1)
         {
-<<<<<<< HEAD
-            Experiment exp = experimentMapper.selectByPrimaryKey(experimentUserLike.getExperimentId());
-            if(exp==null)
-            {
-                return ServerReturnObject.createErrorByMessage("收藏实验不存在");
-            }
-            //实验收藏数加一
-            exp.setTotalLikes(exp.getTotalLikes()+1);
-            experimentMapper.updateByPrimaryKeySelective(exp);
-            return ServerReturnObject.createSuccessByMessageAndData("收藏成功",exp.getTotalLikes());
-=======
-
             //实验收藏数加一
             Integer totalLikes = exp.getTotalLikes()+1;
             exp.setTotalLikes(totalLikes);
@@ -63,7 +47,6 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
             Map<String,Object>map=new HashMap<>();
             map.put("totalLikes",totalLikes);
             return ServerReturnObject.createSuccessByMessageAndData("收藏成功",map);
->>>>>>> ea4a05a7c8c1d3ef24cc668f76ef00c57d7c8fd3
         }
         else{
             return ServerReturnObject.createErrorByMessage("收藏失败");
@@ -89,11 +72,6 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
         if(result >= 1)
         {
             //实验收藏数减一
-<<<<<<< HEAD
-            exp.setTotalLikes(exp.getTotalLikes()-1);
-            experimentMapper.updateByPrimaryKeySelective(exp);
-            return ServerReturnObject.createSuccessByMessageAndData("取消收藏成功",exp.getTotalLikes());
-=======
             Integer totalLikes = exp.getTotalLikes()-1;
 
             exp.setTotalLikes(totalLikes);
@@ -105,7 +83,6 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
             Map<String,Object>map=new HashMap<>();
             map.put("totalLikes",totalLikes);
             return ServerReturnObject.createSuccessByMessageAndData("取消收藏成功",map);
->>>>>>> ea4a05a7c8c1d3ef24cc668f76ef00c57d7c8fd3
         }
         else{
             return ServerReturnObject.createErrorByMessage("取消收藏失败");

@@ -2,7 +2,7 @@ package jianxin.psyExperiment.controller.Impl;
 import jianxin.psyExperiment.controller.ApplicationController;
 import jianxin.psyExperiment.entity.Application;
 import jianxin.psyExperiment.service.ApplicationService;
-import jianxin.psyExperiment.support.exceptionHandler.entity.ServerReturnObject;
+import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

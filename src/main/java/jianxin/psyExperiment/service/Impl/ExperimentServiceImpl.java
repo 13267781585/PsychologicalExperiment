@@ -1,5 +1,6 @@
 package jianxin.psyExperiment.service.Impl;
 
+import com.github.pagehelper.PageHelper;
 import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
 import jianxin.psyExperiment.service.ExperimentService;
@@ -7,7 +8,9 @@ import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ExperimentServiceImpl implements ExperimentService {
@@ -16,13 +19,8 @@ public class ExperimentServiceImpl implements ExperimentService {
 
 
     @Override
-<<<<<<< HEAD
-    public ServerReturnObject getAllExp() {
-=======
     public ServerReturnObject findAllExperiment() {
->>>>>>> ea4a05a7c8c1d3ef24cc668f76ef00c57d7c8fd3
         List<Experiment> result = experimentMapper.selectAll();
-
         return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",result);
     }
 
@@ -107,11 +105,7 @@ public class ExperimentServiceImpl implements ExperimentService {
     }
 
     @Override
-<<<<<<< HEAD
-    public ServerReturnObject deleteExp(Integer id) {
-=======
     public ServerReturnObject deleteExp(Integer id) throws Exception{
->>>>>>> ea4a05a7c8c1d3ef24cc668f76ef00c57d7c8fd3
         if(id==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：id");
@@ -122,9 +116,6 @@ public class ExperimentServiceImpl implements ExperimentService {
             return ServerReturnObject.createSuccessByMessage("实验删除成功");
         }
         else{
-<<<<<<< HEAD
-            return ServerReturnObject.createErrorByMessage("指定实验不存在");
-=======
             return ServerReturnObject.createErrorByMessage("实验删除失败");
         }
     }
@@ -141,7 +132,6 @@ public class ExperimentServiceImpl implements ExperimentService {
         }
         else{
             return ServerReturnObject.createErrorByMessage("指定实验不存在");
->>>>>>> ea4a05a7c8c1d3ef24cc668f76ef00c57d7c8fd3
         }
     }
 
@@ -158,9 +148,17 @@ public class ExperimentServiceImpl implements ExperimentService {
         if(flag<=0){
             return ServerReturnObject.createErrorByMessage("浏览数加一失败");
         }
-        Map<String,Object>map=new HashMap<>();
+        Map<String,Object> map=new HashMap<>();
         map.put("pageView",pageView);
         return ServerReturnObject.createSuccessByMessageAndData("浏览数加一",map);
+    }
+
+    @Override
+    public ServerReturnObject selectExperimentByExample(Map<String, String> example) {
+        int pageNum = example.get("pageNum") == null ? 1 : Integer.parseInt(example.get("pageNum"));
+        int pageSize = example.get("pageSize") == null ? 10 : Integer.parseInt(example.get("pageSize"));
+        PageHelper.startPage(pageNum,pageSize);
+        return ServerReturnObject.createSuccessByData(experimentMapper.selectByExample(example));
     }
 
 

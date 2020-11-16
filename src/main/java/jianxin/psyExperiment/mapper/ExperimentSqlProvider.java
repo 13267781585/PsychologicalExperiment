@@ -1,9 +1,46 @@
 package jianxin.psyExperiment.mapper;
 
 import jianxin.psyExperiment.entity.Experiment;
+import jianxin.psyExperiment.support.util.ComUtils;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.util.Map;
+
 public class ExperimentSqlProvider {
+    /*
+        接口
+        "keWord":""  关键字搜索
+        "type":""  实验类型
+        "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
+        "pageNum":""   分页开始位置
+        "pageSize":""     一页的记录数
+      */
+    public String selectByExample(Map<String,String> example)
+    {
+        StringBuilder sb = new StringBuilder();
+        if("performance_score".equals(example.get("descType")))
+            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes, e.score, e.tag, e.status, e.date_start, " +
+                    " e.date_end, e.time_periods from experiment e  left join user u on e.tester_id = u.id  where 1=1 ");
+        else
+            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes, e.score, e.tag, e.status, e.date_start, " +
+                    "e.date_end, e.time_periods from experiment e where 1=1 ");
+
+        if(!ComUtils.isEmpty(example.get("type")))
+            sb.append(" and e.type = '").append(example.get("type")).append("' ");
+        if(!ComUtils.isEmpty(example.get("keyWord")))
+            sb.append(" and e.name like '%").append(example.get("keyWord")).append("%' ");
+        if("duration".equals(example.get("descType")))
+            sb.append(" order by e.duration desc ");
+        else
+            if("reward".equals(example.get("descType")))
+                sb.append(" order by e.reward desc ");
+            else
+                if("performance_score".equals(example.get("descType")))
+                sb.append(" order by u.performance_score desc ");
+        System.out.print(sb.toString());
+        return sb.toString();
+    }
+
     public String insertSelective(Experiment record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("experiment");
