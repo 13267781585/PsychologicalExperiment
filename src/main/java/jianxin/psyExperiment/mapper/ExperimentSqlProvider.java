@@ -7,40 +7,6 @@ import org.apache.ibatis.jdbc.SQL;
 import java.util.Map;
 
 public class ExperimentSqlProvider {
-    /*
-        接口
-        "keWord":""  关键字搜索
-        "type":""  实验类型
-        "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
-        "pageNum":""   分页开始位置
-        "pageSize":""     一页的记录数
-      */
-    public String selectByExample(Map<String,String> example)
-    {
-        StringBuilder sb = new StringBuilder();
-        if("performance_score".equals(example.get("descType")))
-            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes, e.score, e.tag, e.status, e.date_start, " +
-                    " e.date_end, e.time_periods from experiment e  left join user u on e.tester_id = u.id  where 1=1 ");
-        else
-            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes, e.score, e.tag, e.status, e.date_start, " +
-                    "e.date_end, e.time_periods from experiment e where 1=1 ");
-
-        if(!ComUtils.isEmpty(example.get("type")))
-            sb.append(" and e.type = '").append(example.get("type")).append("' ");
-        if(!ComUtils.isEmpty(example.get("keyWord")))
-            sb.append(" and e.name like '%").append(example.get("keyWord")).append("%' ");
-        if("duration".equals(example.get("descType")))
-            sb.append(" order by e.duration desc ");
-        else
-            if("reward".equals(example.get("descType")))
-                sb.append(" order by e.reward desc ");
-            else
-                if("performance_score".equals(example.get("descType")))
-                sb.append(" order by u.performance_score desc ");
-        System.out.print(sb.toString());
-        return sb.toString();
-    }
-
     public String insertSelective(Experiment record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("experiment");
@@ -82,7 +48,7 @@ public class ExperimentSqlProvider {
         }
         
         if (record.getTime() != null) {
-            sql.VALUES("time", "#{time,jdbcType=SMALLINT}");
+            sql.VALUES("time", "#{time,jdbcType=REAL}");
         }
         
         if (record.getSendTimestamp() != null) {
@@ -101,10 +67,6 @@ public class ExperimentSqlProvider {
             sql.VALUES("total_likes", "#{totalLikes,jdbcType=INTEGER}");
         }
         
-        if (record.getScore() != null) {
-            sql.VALUES("score", "#{score,jdbcType=REAL}");
-        }
-        
         if (record.getTag() != null) {
             sql.VALUES("tag", "#{tag,jdbcType=VARCHAR}");
         }
@@ -113,12 +75,12 @@ public class ExperimentSqlProvider {
             sql.VALUES("status", "#{status,jdbcType=VARCHAR}");
         }
         
-        if (record.getDateStart() != null) {
-            sql.VALUES("date_start", "#{dateStart,jdbcType=CHAR}");
+        if (record.getFaceUrl() != null) {
+            sql.VALUES("face_url", "#{faceUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getDateEnd() != null) {
-            sql.VALUES("date_end", "#{dateEnd,jdbcType=CHAR}");
+        if (record.getUsername() != null) {
+            sql.VALUES("username", "#{username,jdbcType=VARCHAR}");
         }
         
         if (record.getTimePeriods() != null) {
@@ -165,7 +127,7 @@ public class ExperimentSqlProvider {
         }
         
         if (record.getTime() != null) {
-            sql.SET("time = #{time,jdbcType=SMALLINT}");
+            sql.SET("time = #{time,jdbcType=REAL}");
         }
         
         if (record.getSendTimestamp() != null) {
@@ -184,10 +146,6 @@ public class ExperimentSqlProvider {
             sql.SET("total_likes = #{totalLikes,jdbcType=INTEGER}");
         }
         
-        if (record.getScore() != null) {
-            sql.SET("score = #{score,jdbcType=REAL}");
-        }
-        
         if (record.getTag() != null) {
             sql.SET("tag = #{tag,jdbcType=VARCHAR}");
         }
@@ -196,12 +154,12 @@ public class ExperimentSqlProvider {
             sql.SET("status = #{status,jdbcType=VARCHAR}");
         }
         
-        if (record.getDateStart() != null) {
-            sql.SET("date_start = #{dateStart,jdbcType=CHAR}");
+        if (record.getFaceUrl() != null) {
+            sql.SET("face_url = #{faceUrl,jdbcType=VARCHAR}");
         }
         
-        if (record.getDateEnd() != null) {
-            sql.SET("date_end = #{dateEnd,jdbcType=CHAR}");
+        if (record.getUsername() != null) {
+            sql.SET("username = #{username,jdbcType=VARCHAR}");
         }
         
         if (record.getTimePeriods() != null) {
@@ -212,4 +170,38 @@ public class ExperimentSqlProvider {
         
         return sql.toString();
     }
+    /*
+    接口
+    "keWord":""  关键字搜索
+    "type":""  实验类型
+    "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
+    "pageNum":""   分页开始位置
+    "pageSize":""     一页的记录数
+  */
+    public String selectByExample(Map<String,String> example)
+    {
+        StringBuilder sb = new StringBuilder();
+        if("performance_score".equals(example.get("descType")))
+            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes,  e.tag, e.status,  " +
+                    "  e.time_periods from experiment e  left join user u on e.tester_id = u.id  where 1=1 ");
+        else
+            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes,  e.tag, e.status,  " +
+                    " e.time_periods from experiment e where 1=1 ");
+
+        if(!ComUtils.isEmpty(example.get("type")))
+            sb.append(" and e.type = '").append(example.get("type")).append("' ");
+        if(!ComUtils.isEmpty(example.get("keyWord")))
+            sb.append(" and e.name like '%").append(example.get("keyWord")).append("%' ");
+        if("duration".equals(example.get("descType")))
+            sb.append(" order by e.duration desc ");
+        else
+        if("reward".equals(example.get("descType")))
+            sb.append(" order by e.reward desc ");
+        else
+        if("performance_score".equals(example.get("descType")))
+            sb.append(" order by u.performance_score desc ");
+        System.out.print(sb.toString());
+        return sb.toString();
+    }
+
 }

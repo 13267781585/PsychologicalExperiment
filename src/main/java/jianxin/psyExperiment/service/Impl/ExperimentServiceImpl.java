@@ -79,10 +79,27 @@ public class ExperimentServiceImpl implements ExperimentService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：totalLikes");
         }
-        if(experiment.getScore()==null)
+        if(experiment.getTag()==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：score");
+            return ServerReturnObject.createErrorByMessage("参数不足：tag");
         }
+        if(experiment.getStatus()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：status");
+        }
+        if(experiment.getFaceUrl()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：faceUrl");
+        }
+        if(experiment.getUsername()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：username");
+        }
+        if(experiment.getTimePeriods()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：timePeriods");
+        }
+
 
         int result = experimentMapper.insert(experiment);
         if(result == 1){
