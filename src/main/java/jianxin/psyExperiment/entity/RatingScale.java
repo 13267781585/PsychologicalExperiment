@@ -1,6 +1,6 @@
 package jianxin.psyExperiment.entity;
 
-public class ratingScale {
+public class RatingScale {
     private Integer id;
 
     private Integer experimentId;

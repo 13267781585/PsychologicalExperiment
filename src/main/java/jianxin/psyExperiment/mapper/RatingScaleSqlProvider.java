@@ -1,10 +1,10 @@
 package jianxin.psyExperiment.mapper;
 
-import jianxin.psyExperiment.entity.ratingScale;
+import jianxin.psyExperiment.entity.RatingScale;
 import org.apache.ibatis.jdbc.SQL;
 
-public class ratingScaleSqlProvider {
-    public String insertSelective(ratingScale record) {
+public class RatingScaleSqlProvider {
+    public String insertSelective(RatingScale record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("rating_scale");
         
@@ -39,7 +39,7 @@ public class ratingScaleSqlProvider {
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(ratingScale record) {
+    public String updateByPrimaryKeySelective(RatingScale record) {
         SQL sql = new SQL();
         sql.UPDATE("rating_scale");
         

@@ -1,17 +1,10 @@
 package jianxin.psyExperiment.mapper;
 
-import jianxin.psyExperiment.entity.ratingScale;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.UpdateProvider;
+import jianxin.psyExperiment.entity.RatingScale;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
-
-public interface ratingScaleMapper {
+@Mapper
+public interface RatingScaleMapper {
     @Delete({
         "delete from rating_scale",
         "where id = #{id,jdbcType=INTEGER}"
@@ -26,10 +19,10 @@ public interface ratingScaleMapper {
         "#{type,jdbcType=VARCHAR}, #{testerId,jdbcType=INTEGER}, ",
         "#{userId,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{timestamp,jdbcType=INTEGER})"
     })
-    int insert(ratingScale record);
+    int insert(RatingScale record);
 
-    @InsertProvider(type=ratingScaleSqlProvider.class, method="insertSelective")
-    int insertSelective(ratingScale record);
+    @InsertProvider(type=RatingScaleSqlProvider.class, method="insertSelective")
+    int insertSelective(RatingScale record);
 
     @Select({
         "select",
@@ -46,10 +39,10 @@ public interface ratingScaleMapper {
         @Result(column="score", property="score", jdbcType=JdbcType.INTEGER),
         @Result(column="timestamp", property="timestamp", jdbcType=JdbcType.INTEGER)
     })
-    ratingScale selectByPrimaryKey(Integer id);
+    RatingScale selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=ratingScaleSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(ratingScale record);
+    @UpdateProvider(type=RatingScaleSqlProvider.class, method="updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(RatingScale record);
 
     @Update({
         "update rating_scale",
@@ -61,5 +54,5 @@ public interface ratingScaleMapper {
           "timestamp = #{timestamp,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    int updateByPrimaryKey(ratingScale record);
+    int updateByPrimaryKey(RatingScale record);
 }

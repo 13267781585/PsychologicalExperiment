@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
             return ServerReturnObject.createErrorByMessage("参数不足：openId");
         }
         List<User> exist = userMapper.selectByOpenId(user.getOpenId());
-        if(exist==null) {
+        if(exist.size()==0) {
             int result = userMapper.insert(user);
             if (result > 0) {
                 return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
