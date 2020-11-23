@@ -73,9 +73,10 @@ public class UserServiceImpl implements UserService {
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         if(increase==null)
             return ServerReturnObject.createErrorByMessage("参数不足：increase");
-        if(userMapper.selectByPrimaryKey(userId)==null)
-            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
+
         User user=userMapper.selectByPrimaryKey(userId);
+        if(user==null)
+            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
         Integer coins = user.getCoins()+increase;
         user.setCoins(coins);
         Integer flag=userMapper.updateByPrimaryKey(user);

@@ -22,7 +22,7 @@ public interface UserMapper {
         "sex, duration, sno, ",
         "performance_score, credit_score, ",
         "coins, wechat)",
-        "values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=INTEGER}, ",
+        "values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, ",
         "#{username,jdbcType=VARCHAR}, #{identity,jdbcType=VARCHAR}, ",
         "#{faceUrl,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, ",
         "#{major,jdbcType=VARCHAR}, #{grade,jdbcType=SMALLINT}, #{phone,jdbcType=VARCHAR}, ",
@@ -44,7 +44,7 @@ public interface UserMapper {
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
-        @Result(column="open_id", property="openId", jdbcType=JdbcType.INTEGER),
+        @Result(column="open_id", property="openId", jdbcType=JdbcType.VARCHAR),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="identity", property="identity", jdbcType=JdbcType.VARCHAR),
         @Result(column="face_url", property="faceUrl", jdbcType=JdbcType.VARCHAR),
@@ -67,7 +67,7 @@ public interface UserMapper {
 
     @Update({
         "update user",
-        "set open_id = #{openId,jdbcType=INTEGER},",
+        "set open_id = #{openId,jdbcType=VARCHAR},",
           "username = #{username,jdbcType=VARCHAR},",
           "identity = #{identity,jdbcType=VARCHAR},",
           "face_url = #{faceUrl,jdbcType=VARCHAR},",
@@ -94,7 +94,7 @@ public interface UserMapper {
 
     @Update({
             "update user",
-            "set open_id = #{openId,jdbcType=INTEGER},",
+            "set open_id = #{openId,jdbcType=VARCHAR},",
             "username = #{username,jdbcType=VARCHAR},",
             "identity = #{identity,jdbcType=VARCHAR},",
             "face_url = #{faceUrl,jdbcType=VARCHAR},",
@@ -109,7 +109,7 @@ public interface UserMapper {
             "credit_score = #{creditScore,jdbcType=REAL},",
             "coins = #{coins,jdbcType=INTEGER},",
             "wechat = #{wechat,jdbcType=VARCHAR}",
-            "where open_id = #{openId,jdbcType=INTEGER}"
+            "where open_id = #{openId,jdbcType=VARCHAR}"
     })
     int updateByOpenId(User record);
 
