@@ -25,4 +25,7 @@ public interface ApplicationController {
 
     //主试确认完成接口
     public ServerReturnObject testerCheck(Integer id,String testerSchedule);
+
+    //主试通过审核
+    public ServerReturnObject testerPass(Integer id,String checkStatus);
 }

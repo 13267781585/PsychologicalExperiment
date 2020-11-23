@@ -17,4 +17,6 @@ public interface ApplicationService {
     ServerReturnObject userCheck(Integer id,String userSchedule);
 
     ServerReturnObject testerCheck(Integer id,String testerSchedule);
+
+    ServerReturnObject testerPass(Integer id, String checkStatus);
 }

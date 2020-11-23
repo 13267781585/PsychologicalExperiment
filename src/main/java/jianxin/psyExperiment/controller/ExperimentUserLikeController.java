@@ -10,7 +10,6 @@ public interface ExperimentUserLikeController {
     public ServerReturnObject collectExp(ExperimentUserLike experimentUserLike);
 
     //取消收藏
-
     public ServerReturnObject cancelCollectExp(ExperimentUserLike experimentUserLike);
 
     //判断是否已收藏

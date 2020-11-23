@@ -177,6 +177,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：testerSchedule");
         }
+
         Application record=applicationMapper.selectByPrimaryKey(id);
         if(record==null)
         {
@@ -195,5 +196,36 @@ public class ApplicationServiceImpl implements ApplicationService {
             return ServerReturnObject.createSuccessByMessageAndData("主试确认未完成", record);
         }
         return ServerReturnObject.createErrorByMessage("主试确认失败");
+    }
+
+    @Override
+    public ServerReturnObject testerPass(Integer id, String checkStatus) {
+        if(id==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：id");
+        }
+        if(checkStatus==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：testerSchedule");
+        }
+
+        Application record=applicationMapper.selectByPrimaryKey(id);
+        if(record==null)
+        {
+            return ServerReturnObject.createErrorByMessage("报名不存在");
+        }
+        if(checkStatus.equals("已通过"))
+        {
+            record.setCheckStatus("已通过");
+            applicationMapper.updateByPrimaryKey(record);
+            return ServerReturnObject.createSuccessByMessageAndData("主试通过报名", record);
+        }
+        else if(checkStatus.equals("未通过"))
+        {
+            record.setCheckStatus("未通过");
+            applicationMapper.updateByPrimaryKey(record);
+            return ServerReturnObject.createSuccessByMessageAndData("主试不通过报名", record);
+        }
+        return ServerReturnObject.createErrorByMessage("主试通过失败");
     }
 }

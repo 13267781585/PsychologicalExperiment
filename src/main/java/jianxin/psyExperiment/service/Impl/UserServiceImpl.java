@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         Object result = userMapper.selectByPrimaryKey(id);
         if(result==null)
         {
-            throw new Exception("获取失败：指定id用户不存在");
+            throw new Exception("指定id用户不存在");
         }
         return ServerReturnObject.createSuccessByMessageAndData("获取成功",result);
     }
@@ -41,11 +41,17 @@ public class UserServiceImpl implements UserService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：openId");
         }
-        int result = userMapper.insert(user);
-        if(result>0){
-            return ServerReturnObject.createSuccessByMessageAndData("数据添加成功",result);
-        }else{
-            throw new Exception("添加失败");
+        List<User> exist = userMapper.selectByOpenId(user.getOpenId());
+        if(exist==null) {
+            int result = userMapper.insert(user);
+            if (result > 0) {
+                return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
+            } else {
+                throw new Exception("添加失败");
+            }
+        }else
+        {
+            return ServerReturnObject.createErrorByMessage("openId已被注册");
         }
 
     }
