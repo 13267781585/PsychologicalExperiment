@@ -41,8 +41,16 @@ public class UserServiceImpl implements UserService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：openId");
         }
+        if(user.getIdentity()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：identity");
+        }
         List<User> exist = userMapper.selectByOpenId(user.getOpenId());
         if(exist.size()==0) {
+            user.setCoins(0);
+            user.setCreditScore(100f);
+            user.setPerformanceScore(-1f);
+            user.setDuration(0f);
             int result = userMapper.insert(user);
             if (result > 0) {
                 return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
@@ -51,7 +59,21 @@ public class UserServiceImpl implements UserService {
             }
         }else
         {
-            return ServerReturnObject.createErrorByMessage("openId已被注册");
+            for(int i = 0;i<exist.size();i++)
+            {
+                if(exist.get(i).getIdentity().equals(user.getIdentity()))
+                    return ServerReturnObject.createErrorByMessage("已注册");
+            }
+            user.setCoins(0);
+            user.setCreditScore(100f);
+            user.setPerformanceScore(-1f);
+            user.setDuration(0f);
+            int result = userMapper.insert(user);
+            if (result > 0) {
+                return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
+            } else {
+                throw new Exception("添加失败");
+            }
         }
 
     }
@@ -60,7 +82,27 @@ public class UserServiceImpl implements UserService {
     public ServerReturnObject edit(User user) throws Exception{
         if(user.getId()==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：openId");
+            return ServerReturnObject.createErrorByMessage("参数不足：id");
+        }
+        if(user.getMajor()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：major");
+        }
+        if(user.getGrade()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：grade");
+        }
+        if(user.getCollege()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：college");
+        }
+        if(user.getPhone()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：phone");
+        }
+        if(user.getSex()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：Sex");
         }
         int result = userMapper.updateByPrimaryKey(user);
         if(result>0)
@@ -132,6 +174,8 @@ public class UserServiceImpl implements UserService {
         Float score = user.getCreditScore()+increase;
         user.setCreditScore(score);
         Integer flag=userMapper.updateByPrimaryKey(user);
+        if(score>100)
+            score=100f;
         if(flag>0)
         {
             return ServerReturnObject.createSuccessByMessageAndData("信誉分增加成功",score);
