@@ -13,6 +13,11 @@ public class ServerReturnObject implements Serializable {
         this.data = data;
     }
 
+    public static ServerReturnObject createByCodeAndMessageAndData(int code,String msg,Object data)
+    {
+        return new ServerReturnObject(code,msg,data);
+    }
+
     public static ServerReturnObject createErrorByMessage(String msg)
     {
         return new ServerReturnObject(-1,msg,null);

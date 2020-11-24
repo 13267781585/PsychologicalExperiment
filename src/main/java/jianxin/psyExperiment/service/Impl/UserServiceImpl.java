@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
             for(int i = 0;i<exist.size();i++)
             {
                 if(exist.get(i).getIdentity().equals(user.getIdentity()))
-                    return ServerReturnObject.createErrorByMessage("已注册");
+                    return ServerReturnObject.createByCodeAndMessageAndData(1,"已注册",exist.get(i).getId());
             }
             user.setCoins(0);
             user.setCreditScore(100f);
