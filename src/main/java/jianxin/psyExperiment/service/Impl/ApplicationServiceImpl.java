@@ -8,6 +8,7 @@ import jianxin.psyExperiment.mapper.ApplicationMapper;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
 import jianxin.psyExperiment.mapper.UserMapper;
 import jianxin.psyExperiment.service.ApplicationService;
+import jianxin.psyExperiment.support.objIsUtil.ObjIsNullUtil;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     private UserMapper userMapper;
 
     @Override
-    public ServerReturnObject sign(Application application) {
-        if(application.getCheckStatus()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：checkStatus");
-        }
+    public ServerReturnObject sign(Application application) throws IllegalAccessException {
+//        if(application.getCheckStatus()==null)
+//        {
+//            return ServerReturnObject.createErrorByMessage("参数不足：checkStatus");
+//        }
         if(application.getExperimentId()==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：experimentId");
@@ -41,28 +42,32 @@ public class ApplicationServiceImpl implements ApplicationService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：signTimestamp");
         }
-        if(application.getTesterSchedule()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：testerSchedule");
-        }
+//        if(application.getTesterSchedule()==null)
+//        {
+//            return ServerReturnObject.createErrorByMessage("参数不足：testerSchedule");
+//        }
         if(application.getTimePeriod()==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：getTimePeriod");
+            return ServerReturnObject.createErrorByMessage("参数不足：timePeriod");
         }
         if(application.getUserId()==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         }
-        if(application.getUserSchedule()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：userSchedule");
-        }
+//        if(application.getUserSchedule()==null)
+//        {
+//            return ServerReturnObject.createErrorByMessage("参数不足：userSchedule");
+//        }
+//        String name = ObjIsNullUtil.isAllFieldNotNull(application);
+//        if(name!=null){
+//            return ServerReturnObject.createErrorByMessage("参数不足："+name);
+//        }
         Experiment experiment = experimentMapper.selectByPrimaryKey(application.getExperimentId());
         if(experiment==null)
         {
             return ServerReturnObject.createErrorByMessage("报名实验不存在");
         }
-        Integer result = applicationMapper.insert(application);
+        Integer result = applicationMapper.insertSelective(application);
         if(result>0)
         {
             //报名数加一
@@ -72,9 +77,8 @@ public class ApplicationServiceImpl implements ApplicationService {
             if(flag<=0){
                 return ServerReturnObject.createErrorByMessage("报名加一失败");
             }
-            Map<String,Object> map=new HashMap<>();
-            map.put("enrollment",enrollment);
-            return ServerReturnObject.createSuccessByMessageAndData("报名成功",map);
+
+            return ServerReturnObject.createSuccessByMessageAndData("报名成功",enrollment);
         }
         else{
             return ServerReturnObject.createErrorByMessage("报名失败");

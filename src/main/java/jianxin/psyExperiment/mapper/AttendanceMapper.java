@@ -58,4 +58,15 @@ public interface AttendanceMapper {
             @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true)
     })
     Integer findPrimaryKeyByUserId(Integer userId);
+
+    @Select({
+            "select",
+            "days",
+            "from attendance",
+            "where user_id = #{userId,jdbcType=INTEGER}"
+    })
+    @Results({
+            @Result(column="days", property="days", jdbcType=JdbcType.INTEGER, id=true)
+    })
+    Integer selectByuserId(Integer userId);
 }

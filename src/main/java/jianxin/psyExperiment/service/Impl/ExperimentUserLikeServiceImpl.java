@@ -44,9 +44,8 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
             Integer flag = experimentMapper.updateByPrimaryKeySelective(exp);
             if(flag<=0)
                 return ServerReturnObject.createErrorByMessage("收藏数加一失败");
-            Map<String,Object>map=new HashMap<>();
-            map.put("totalLikes",totalLikes);
-            return ServerReturnObject.createSuccessByMessageAndData("收藏成功",map);
+
+            return ServerReturnObject.createSuccessByMessageAndData("收藏成功",totalLikes);
         }
         else{
             return ServerReturnObject.createErrorByMessage("收藏失败");

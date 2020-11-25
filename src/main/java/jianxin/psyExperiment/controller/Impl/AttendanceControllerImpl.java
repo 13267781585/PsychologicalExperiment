@@ -16,4 +16,9 @@ public class AttendanceControllerImpl implements AttendanceController {
     public ServerReturnObject checkIn(Integer userId, Integer timestamp) {
         return attendanceService.checkIn(userId,timestamp);
     }
+
+    @RequestMapping("/getCheckInDay")
+    public ServerReturnObject getCheckInDay(Integer userId) {
+        return attendanceService.getCheckInDay(userId);
+    }
 }

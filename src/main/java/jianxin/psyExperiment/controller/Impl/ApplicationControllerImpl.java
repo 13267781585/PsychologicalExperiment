@@ -15,7 +15,7 @@ public class ApplicationControllerImpl implements  ApplicationController{
     private ApplicationService applicationService;
 
     @RequestMapping("/sign")
-    public ServerReturnObject Sign(Application application) {
+    public ServerReturnObject Sign(Application application)throws IllegalAccessException {
         return applicationService.sign(application);
     }
 

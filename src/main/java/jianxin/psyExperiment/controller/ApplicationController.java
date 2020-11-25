@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 public interface ApplicationController {
     //被试报名实验
-    public ServerReturnObject Sign(Application application);
+    public ServerReturnObject Sign(Application application)throws IllegalAccessException;
 
     //获取所有报名记录
     public ServerReturnObject findAllRecords();

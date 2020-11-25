@@ -62,4 +62,14 @@ public class AttendanceServiceImpl implements AttendanceService {
             return ServerReturnObject.createSuccessByMessageAndData("签到成功",  1);
         }
     }
+
+    @Override
+    public ServerReturnObject getCheckInDay(Integer userId) {
+        if(userId == null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        }
+        Integer day = attendanceMapper.selectByuserId(userId);
+        return ServerReturnObject.createSuccessByMessageAndData("获取签到天数",day);
+    }
 }

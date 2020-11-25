@@ -4,7 +4,7 @@ import jianxin.psyExperiment.entity.Application;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 
 public interface ApplicationService {
-    ServerReturnObject sign(Application application);
+    ServerReturnObject sign(Application application) throws IllegalAccessException;
 
     ServerReturnObject findAllRecords();
 
