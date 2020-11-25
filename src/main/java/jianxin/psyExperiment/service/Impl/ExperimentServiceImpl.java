@@ -146,7 +146,7 @@ public class ExperimentServiceImpl implements ExperimentService {
             return ServerReturnObject.createErrorByMessage("参数不足：id");
         }
         Experiment result = experimentMapper.selectByPrimaryKey(id);
-        if(result==null){
+        if(result!=null){
             return ServerReturnObject.createSuccessByMessageAndData("数据获取成功",result);
         }
         else{

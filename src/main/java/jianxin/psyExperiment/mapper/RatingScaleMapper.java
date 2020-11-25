@@ -55,4 +55,20 @@ public interface RatingScaleMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(RatingScale record);
+
+    @Select({
+            "select",
+            "count(user_id)",
+            "from rating_scale",
+            "where user_id = #{userId,jdbcType=INTEGER} and type = 'user' "
+    })
+    int getNumByUserId(Integer userId);
+
+    @Select({
+            "select",
+            "count(tester_id)",
+            "from rating_scale",
+            "where tester_id = #{testerId,jdbcType=INTEGER} and type = 'tester' "
+    })
+    int getNumByTesterId(Integer testerId);
 }

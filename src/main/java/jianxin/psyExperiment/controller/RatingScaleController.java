@@ -5,5 +5,5 @@ import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 
 public interface RatingScaleController {
     //评分
-    public ServerReturnObject mark(RatingScale ratingScale);
+    public ServerReturnObject mark(RatingScale ratingScale)throws IllegalAccessException;
 }
