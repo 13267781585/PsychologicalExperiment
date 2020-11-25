@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
 import jianxin.psyExperiment.service.ExperimentService;
+import jianxin.psyExperiment.support.objIsUtil.ObjIsNullUtil;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -178,6 +179,24 @@ public class ExperimentServiceImpl implements ExperimentService {
         int pageSize = example.get("pageSize") == null ? 10 : Integer.parseInt(example.get("pageSize"));
         PageHelper.startPage(pageNum,pageSize);
         return ServerReturnObject.createSuccessByData(experimentMapper.selectByExample(example));
+    }
+
+    @Override
+    public ServerReturnObject updateExperiment(Experiment experiment) throws IllegalAccessException {
+        if(experiment.getId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：id");
+        }
+        if(ObjIsNullUtil.isAllFieldNull(experiment))
+        {
+            return  ServerReturnObject.createByCodeAndMessageAndData(0,"没有修改数据",null);
+        }
+        int result = experimentMapper.updateByPrimaryKeySelective(experiment);
+        if(result == 1){
+            return ServerReturnObject.createSuccessByMessage("数据修改成功");
+        }else{
+            return ServerReturnObject.createErrorByMessage("数据修改失败");
+        }
     }
 
 

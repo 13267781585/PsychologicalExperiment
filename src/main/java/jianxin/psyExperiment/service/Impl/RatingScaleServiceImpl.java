@@ -45,7 +45,7 @@ public class RatingScaleServiceImpl implements RatingScaleService {
 //        {
 //            return ServerReturnObject.createErrorByMessage("参数不足：userId");
 //        }
-        String name = ObjIsNullUtil.isAllFieldNotNull(ratingScale);
+        String name = ObjIsNullUtil.firstNullName(ratingScale);
         if(name!=null){
             return ServerReturnObject.createErrorByMessage("参数不足："+name);
         }

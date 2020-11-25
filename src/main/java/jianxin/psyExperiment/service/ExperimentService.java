@@ -19,4 +19,6 @@ public interface ExperimentService {
     ServerReturnObject PageViewPlus(Integer id) throws Exception;
     //按照条件搜索实验
     ServerReturnObject selectExperimentByExample(Map<String,String> example);
+
+    ServerReturnObject updateExperiment(Experiment experiment) throws IllegalAccessException;
 }
