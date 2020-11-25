@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：Sex");
         }
-        int result = userMapper.updateByPrimaryKey(user);
+        int result = userMapper.updateByPrimaryKeySelective(user);
         if(result>0)
         {
             return ServerReturnObject.createSuccessByMessageAndData("数据修改成功",result);
