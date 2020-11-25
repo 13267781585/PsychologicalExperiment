@@ -104,7 +104,7 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
 
         List<Application> result = applicationMapper.selectByRecord(application);
-        if(result != null)
+        if(result.size!=0)
         {
             return ServerReturnObject.createSuccessByMessageAndData("被试已报名",result);
         }
