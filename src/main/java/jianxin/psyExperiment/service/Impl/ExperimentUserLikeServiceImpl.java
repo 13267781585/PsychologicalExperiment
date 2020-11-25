@@ -100,7 +100,7 @@ public class ExperimentUserLikeServiceImpl implements ExperimentUserLikeService 
         }
 
         List<ExperimentUserLike> result = experimentUserLikeMapper.selectByRecord(experimentUserLike);
-        if(result != null)
+        if(result.size() != 0)
         {
             return ServerReturnObject.createSuccessByMessageAndData("已收藏",result);
         }
