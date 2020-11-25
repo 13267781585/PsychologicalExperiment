@@ -47,7 +47,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 //            return ServerReturnObject.createErrorByMessage("参数不足：testerSchedule");
 //        }
         if(application.getTimePeriod()==null)
-        {
+        {git
             return ServerReturnObject.createErrorByMessage("参数不足：timePeriod");
         }
         if(application.getUserId()==null)
