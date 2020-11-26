@@ -9,10 +9,10 @@ import java.util.Map;
 public class ExperimentSqlProvider {
     /*
         接口
-        "keWord":""  关键字搜索
+        "keyWord":""  关键字搜索
         "type":""  实验类型
         "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
-        "pageNum":""   分页开始位置
+        "pageNum":""
         "pageSize":""     一页的记录数
       */
     public String selectByExample(Map<String,String> example)
