@@ -28,6 +28,11 @@ public class ExperimentControllerImpl implements ExperimentController {
        return experimentService.insertExperiment(experiment);
     }
 
+    @RequestMapping(value="/updateExperiment")
+    public ServerReturnObject updateExperiment(Experiment experiment) throws IllegalAccessException{
+        return experimentService.updateExperiment(experiment);
+    }
+
     @RequestMapping("/selectByExpId")
     public ServerReturnObject selectById(Integer id) {
         return experimentService.selectById(id);

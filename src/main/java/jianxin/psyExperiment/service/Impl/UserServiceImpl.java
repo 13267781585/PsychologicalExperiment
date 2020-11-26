@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         Object result = userMapper.selectByPrimaryKey(id);
         if(result==null)
         {
-            throw new Exception("获取失败：指定id用户不存在");
+            throw new Exception("指定id用户不存在");
         }
         return ServerReturnObject.createSuccessByMessageAndData("获取成功",result);
     }
@@ -41,11 +41,39 @@ public class UserServiceImpl implements UserService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：openId");
         }
-        int result = userMapper.insert(user);
-        if(result>0){
-            return ServerReturnObject.createSuccessByMessageAndData("数据添加成功",result);
-        }else{
-            throw new Exception("添加失败");
+        if(user.getIdentity()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：identity");
+        }
+        List<User> exist = userMapper.selectByOpenId(user.getOpenId());
+        if(exist.size()==0) {
+            user.setCoins(0);
+            user.setCreditScore(100f);
+            user.setPerformanceScore(-1f);
+            user.setDuration(0f);
+            int result = userMapper.insert(user);
+            if (result > 0) {
+                return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
+            } else {
+                throw new Exception("添加失败");
+            }
+        }else
+        {
+            for(int i = 0;i<exist.size();i++)
+            {
+                if(exist.get(i).getIdentity().equals(user.getIdentity()))
+                    return ServerReturnObject.createByCodeAndMessageAndData(1,"已注册",exist.get(i).getId());
+            }
+            user.setCoins(0);
+            user.setCreditScore(100f);
+            user.setPerformanceScore(-1f);
+            user.setDuration(0f);
+            int result = userMapper.insert(user);
+            if (result > 0) {
+                return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
+            } else {
+                throw new Exception("添加失败");
+            }
         }
 
     }
@@ -54,9 +82,29 @@ public class UserServiceImpl implements UserService {
     public ServerReturnObject edit(User user) throws Exception{
         if(user.getId()==null)
         {
-            return ServerReturnObject.createErrorByMessage("参数不足：openId");
+            return ServerReturnObject.createErrorByMessage("参数不足：id");
         }
-        int result = userMapper.updateByPrimaryKey(user);
+        if(user.getMajor()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：major");
+        }
+        if(user.getGrade()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：grade");
+        }
+        if(user.getCollege()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：college");
+        }
+        if(user.getPhone()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：phone");
+        }
+        if(user.getSex()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：Sex");
+        }
+        int result = userMapper.updateByPrimaryKeySelective(user);
         if(result>0)
         {
             return ServerReturnObject.createSuccessByMessageAndData("数据修改成功",result);
@@ -73,9 +121,10 @@ public class UserServiceImpl implements UserService {
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         if(increase==null)
             return ServerReturnObject.createErrorByMessage("参数不足：increase");
-        if(userMapper.selectByPrimaryKey(userId)==null)
-            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
+
         User user=userMapper.selectByPrimaryKey(userId);
+        if(user==null)
+            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
         Integer coins = user.getCoins()+increase;
         user.setCoins(coins);
         Integer flag=userMapper.updateByPrimaryKey(user);
@@ -125,6 +174,8 @@ public class UserServiceImpl implements UserService {
         Float score = user.getCreditScore()+increase;
         user.setCreditScore(score);
         Integer flag=userMapper.updateByPrimaryKey(user);
+        if(score>100)
+            score=100f;
         if(flag>0)
         {
             return ServerReturnObject.createSuccessByMessageAndData("信誉分增加成功",score);

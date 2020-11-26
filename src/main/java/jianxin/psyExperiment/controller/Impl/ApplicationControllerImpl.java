@@ -15,7 +15,7 @@ public class ApplicationControllerImpl implements  ApplicationController{
     private ApplicationService applicationService;
 
     @RequestMapping("/sign")
-    public ServerReturnObject Sign(Application application) {
+    public ServerReturnObject Sign(Application application)throws IllegalAccessException {
         return applicationService.sign(application);
     }
 
@@ -48,5 +48,10 @@ public class ApplicationControllerImpl implements  ApplicationController{
     @RequestMapping("/testerCheck")
     public ServerReturnObject testerCheck(Integer id, String testerSchedule) {
         return applicationService.testerCheck(id,testerSchedule);
+    }
+
+    @RequestMapping("/testerPass")
+    public ServerReturnObject testerPass(Integer id, String checkStatus) {
+        return applicationService.testerPass(id,checkStatus);
     }
 }

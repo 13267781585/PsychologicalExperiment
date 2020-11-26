@@ -17,9 +17,9 @@
 
         <!--设置连接数据库的信息-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/spy_experiment?serverTimezone=UTC"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/experiment?serverTimezone=UTC"
                         userId="root"
-                        password="123456">
+                        password="root">
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
 
@@ -57,7 +57,7 @@ type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
         </javaClientGenerator>
 
         <!--设置要将数据库中的那张表逆向生成哪一个Javabean，tableName为数据库表名，domainObjectName为实体类-->
-        <table tableName="consult_message" domainObjectName="ConsultMessage" enableDeleteByExample="false" enableCountByExample="false"
+        <table tableName="rating_scale" domainObjectName="RatingScale" enableDeleteByExample="false" enableCountByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"/>
     </context>
 </generatorConfiguration>

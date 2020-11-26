@@ -19,7 +19,7 @@ public class Experiment {
 
     private String requirement;
 
-    private Short time;
+    private Float time;
 
     private Integer sendTimestamp;
 
@@ -29,15 +29,13 @@ public class Experiment {
 
     private Integer totalLikes;
 
-    private Float score;
-
     private String tag;
 
     private String status;
 
-    private String dateStart;
+    private String faceUrl;
 
-    private String dateEnd;
+    private String username;
 
     private String timePeriods;
 
@@ -113,11 +111,11 @@ public class Experiment {
         this.requirement = requirement == null ? null : requirement.trim();
     }
 
-    public Short getTime() {
+    public Float getTime() {
         return time;
     }
 
-    public void setTime(Short time) {
+    public void setTime(Float time) {
         this.time = time;
     }
 
@@ -153,14 +151,6 @@ public class Experiment {
         this.totalLikes = totalLikes;
     }
 
-    public Float getScore() {
-        return score;
-    }
-
-    public void setScore(Float score) {
-        this.score = score;
-    }
-
     public String getTag() {
         return tag;
     }
@@ -177,20 +167,20 @@ public class Experiment {
         this.status = status == null ? null : status.trim();
     }
 
-    public String getDateStart() {
-        return dateStart;
+    public String getFaceUrl() {
+        return faceUrl;
     }
 
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart == null ? null : dateStart.trim();
+    public void setFaceUrl(String faceUrl) {
+        this.faceUrl = faceUrl == null ? null : faceUrl.trim();
     }
 
-    public String getDateEnd() {
-        return dateEnd;
+    public String getUsername() {
+        return username;
     }
 
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd == null ? null : dateEnd.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public String getTimePeriods() {

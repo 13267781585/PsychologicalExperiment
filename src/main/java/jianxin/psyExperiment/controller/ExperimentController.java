@@ -11,6 +11,9 @@ public interface ExperimentController {
     //发布实验
     public ServerReturnObject insertExperiment(Experiment experiment) throws Exception;
 
+    //修改实验
+    public ServerReturnObject updateExperiment(Experiment experiment)throws IllegalAccessException;
+
     //获取指定id的实验接口
     public ServerReturnObject selectById(Integer id);
 

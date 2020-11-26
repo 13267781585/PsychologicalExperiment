@@ -9,17 +9,6 @@ import java.util.Map;
 
 @Mapper
 public interface ExperimentMapper {
-    /*
-         接口
-         "keyWord":""  关键字搜索
-         "type":""  实验类型
-         "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
-         "pageNum":""   分页开始位置
-         "pageSize":""     一页的记录数
-       */
-    @SelectProvider(type=ExperimentSqlProvider.class, method="selectByExample")
-    List<Experiment> selectByExample(Map<String,String> example);
-
     @Delete({
         "delete from experiment",
         "where id = #{id,jdbcType=INTEGER}"
@@ -33,29 +22,37 @@ public interface ExperimentMapper {
         "place, requirement, ",
         "time, send_timestamp, ",
         "page_view, enrollment, ",
-        "total_likes, score, ",
-        "tag, status, date_start, ",
-        "date_end, time_periods)",
+        "total_likes, tag, ",
+        "status, face_url, ",
+        "username, time_periods)",
         "values (#{id,jdbcType=INTEGER}, #{testerId,jdbcType=INTEGER}, ",
         "#{type,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, ",
         "#{duration,jdbcType=REAL}, #{reward,jdbcType=SMALLINT}, ",
         "#{place,jdbcType=VARCHAR}, #{requirement,jdbcType=VARCHAR}, ",
-        "#{time,jdbcType=SMALLINT}, #{sendTimestamp,jdbcType=INTEGER}, ",
+        "#{time,jdbcType=REAL}, #{sendTimestamp,jdbcType=INTEGER}, ",
         "#{pageView,jdbcType=INTEGER}, #{enrollment,jdbcType=INTEGER}, ",
-        "#{totalLikes,jdbcType=INTEGER}, #{score,jdbcType=REAL}, ",
-        "#{tag,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{dateStart,jdbcType=CHAR}, ",
-        "#{dateEnd,jdbcType=CHAR}, #{timePeriods,jdbcType=VARCHAR})"
+        "#{totalLikes,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, ",
+        "#{status,jdbcType=VARCHAR}, #{faceUrl,jdbcType=VARCHAR}, ",
+        "#{username,jdbcType=VARCHAR}, #{timePeriods,jdbcType=VARCHAR})"
     })
     int insert(Experiment record);
 
+        /*
+         接口
+         "keyWord":""  关键字搜索
+         "type":""  实验类型
+         "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
+         "pageNum":""   分页开始位置
+         "pageSize":""     一页的记录数
+       */
     @InsertProvider(type=ExperimentSqlProvider.class, method="insertSelective")
     int insertSelective(Experiment record);
 
     @Select({
         "select",
         "id, tester_id, type, name, content, duration, reward, place, requirement, time, ",
-        "send_timestamp, page_view, enrollment, total_likes, score, tag, status, date_start, ",
-        "date_end, time_periods",
+        "send_timestamp, page_view, enrollment, total_likes, tag, status, face_url, username, ",
+        "time_periods",
         "from experiment",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -69,16 +66,15 @@ public interface ExperimentMapper {
         @Result(column="reward", property="reward", jdbcType=JdbcType.SMALLINT),
         @Result(column="place", property="place", jdbcType=JdbcType.VARCHAR),
         @Result(column="requirement", property="requirement", jdbcType=JdbcType.VARCHAR),
-        @Result(column="time", property="time", jdbcType=JdbcType.SMALLINT),
+        @Result(column="time", property="time", jdbcType=JdbcType.REAL),
         @Result(column="send_timestamp", property="sendTimestamp", jdbcType=JdbcType.INTEGER),
         @Result(column="page_view", property="pageView", jdbcType=JdbcType.INTEGER),
         @Result(column="enrollment", property="enrollment", jdbcType=JdbcType.INTEGER),
         @Result(column="total_likes", property="totalLikes", jdbcType=JdbcType.INTEGER),
-        @Result(column="score", property="score", jdbcType=JdbcType.REAL),
         @Result(column="tag", property="tag", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
-        @Result(column="date_start", property="dateStart", jdbcType=JdbcType.CHAR),
-        @Result(column="date_end", property="dateEnd", jdbcType=JdbcType.CHAR),
+        @Result(column="face_url", property="faceUrl", jdbcType=JdbcType.VARCHAR),
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="time_periods", property="timePeriods", jdbcType=JdbcType.VARCHAR)
     })
     Experiment selectByPrimaryKey(Integer id);
@@ -96,16 +92,15 @@ public interface ExperimentMapper {
           "reward = #{reward,jdbcType=SMALLINT},",
           "place = #{place,jdbcType=VARCHAR},",
           "requirement = #{requirement,jdbcType=VARCHAR},",
-          "time = #{time,jdbcType=SMALLINT},",
+          "time = #{time,jdbcType=REAL},",
           "send_timestamp = #{sendTimestamp,jdbcType=INTEGER},",
           "page_view = #{pageView,jdbcType=INTEGER},",
           "enrollment = #{enrollment,jdbcType=INTEGER},",
           "total_likes = #{totalLikes,jdbcType=INTEGER},",
-          "score = #{score,jdbcType=REAL},",
           "tag = #{tag,jdbcType=VARCHAR},",
           "status = #{status,jdbcType=VARCHAR},",
-          "date_start = #{dateStart,jdbcType=CHAR},",
-          "date_end = #{dateEnd,jdbcType=CHAR},",
+          "face_url = #{faceUrl,jdbcType=VARCHAR},",
+          "username = #{username,jdbcType=VARCHAR},",
           "time_periods = #{timePeriods,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -116,7 +111,16 @@ public interface ExperimentMapper {
             "from experiment"
     })
     List<Experiment> selectAll();
-
+    /*
+         接口
+         "keWord":""  关键字搜索
+         "type":""  实验类型
+         "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
+         "pageNum":""   分页开始位置
+         "pageSize":""     一页的记录数
+       */
+    @SelectProvider(type=ExperimentSqlProvider.class, method="selectByExample")
+    List<Experiment> selectByExample(Map<String,String> example);
     @Select({
             "select",
             "id, tester_id, type, name, content,  duration, reward, place, requirement, ",
@@ -155,4 +159,5 @@ public interface ExperimentMapper {
             "where experiment.id = ANY(select experiment_id from application where user_id =#{userId,jdbcType=INTEGER})"
     })
     List<Experiment> selectByUserId(Integer userId);
+
 }
