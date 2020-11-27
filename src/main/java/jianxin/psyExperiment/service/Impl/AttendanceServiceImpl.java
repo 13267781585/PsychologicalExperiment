@@ -32,23 +32,15 @@ public class AttendanceServiceImpl implements AttendanceService {
         if(id!=null) {
             Attendance attendance = attendanceMapper.selectByPrimaryKey(id);
             int days = attendance.getDays()+1;
-            if (days == 3) {
-                attendance.setDays((byte) (days));
-                attendance.setTimestamp(timestamp);
-                attendanceMapper.updateByPrimaryKey(attendance);
-                userService.coinsInc(userId, days);
-                return ServerReturnObject.createSuccessByMessageAndData("签到成功", days );
-            } else if (days == 7) {
+            if (days == 7) {
                 attendance.setDays((byte) 0);
                 attendance.setTimestamp(timestamp);
                 attendanceMapper.updateByPrimaryKey(attendance);
-                userService.coinsInc(userId, days);
                 return ServerReturnObject.createSuccessByMessageAndData("签到成功", 0);
             } else {
                 attendance.setDays((byte) (days ));
                 attendance.setTimestamp(timestamp);
                 attendanceMapper.updateByPrimaryKey(attendance);
-                userService.coinsInc(userId, 1);
                 return ServerReturnObject.createSuccessByMessageAndData("签到成功", days );
             }
         }else
@@ -58,7 +50,6 @@ public class AttendanceServiceImpl implements AttendanceService {
             attendance.setDays((byte) 1);
             attendance.setTimestamp(timestamp);
             attendanceMapper.insert(attendance);
-            userService.coinsInc(userId, 1);
             return ServerReturnObject.createSuccessByMessageAndData("签到成功",  1);
         }
     }
@@ -70,7 +61,7 @@ public class AttendanceServiceImpl implements AttendanceService {
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         }
         Attendance attendance = attendanceMapper.selectByuserId(userId);
-        if(attendance.getDays()==null||attendance.getTimestamp()==null){
+        if(attendance==null){
             return  ServerReturnObject.createByCodeAndMessageAndData(0,"该用户未曾签到",null);
         }
         return ServerReturnObject.createSuccessByMessageAndData("获取签到天数",attendance);
