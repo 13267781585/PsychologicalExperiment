@@ -60,4 +60,9 @@ public class UserControllerImpl implements UserController {
     public ServerReturnObject creditScoreDec(Integer userId, Float decrease) {
         return userService.creditScoreDec(userId,decrease);
     }
+
+    @RequestMapping("/durationIncrease")
+    public ServerReturnObject durationInc(Integer userId, Float increase) {
+        return userService.durationInc(userId,increase);
+    }
 }

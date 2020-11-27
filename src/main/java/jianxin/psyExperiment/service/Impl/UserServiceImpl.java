@@ -47,11 +47,8 @@ public class UserServiceImpl implements UserService {
         }
         List<User> exist = userMapper.selectByOpenId(user.getOpenId());
         if(exist.size()==0) {
-            user.setCoins(0);
-            user.setCreditScore(100f);
-            user.setPerformanceScore(-1f);
-            user.setDuration(0f);
-            int result = userMapper.insert(user);
+
+            int result = userMapper.insertSelective(user);
             if (result > 0) {
                 return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
             } else {
@@ -64,11 +61,8 @@ public class UserServiceImpl implements UserService {
                 if(exist.get(i).getIdentity().equals(user.getIdentity()))
                     return ServerReturnObject.createByCodeAndMessageAndData(1,"已注册",exist.get(i).getId());
             }
-            user.setCoins(0);
-            user.setCreditScore(100f);
-            user.setPerformanceScore(-1f);
-            user.setDuration(0f);
-            int result = userMapper.insert(user);
+
+            int result = userMapper.insertSelective(user);
             if (result > 0) {
                 return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
             } else {
@@ -205,6 +199,29 @@ public class UserServiceImpl implements UserService {
         }
         else{
             return ServerReturnObject.createErrorByMessage("信誉分减少失败");
+        }
+    }
+
+    @Override
+    public ServerReturnObject durationInc(Integer userId, Float increase) {
+        if(userId==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        if(increase==null)
+            return ServerReturnObject.createErrorByMessage("参数不足：increase");
+        if(userMapper.selectByPrimaryKey(userId)==null)
+            return  ServerReturnObject.createErrorByMessage("指定用户不存在");
+        User user=userMapper.selectByPrimaryKey(userId);
+        Float duration=user.getDuration()+increase;
+        if(duration<0)
+            duration=0f;
+        user.setCreditScore(duration);
+        Integer flag=userMapper.updateByPrimaryKey(user);
+        if(flag>0)
+        {
+            return ServerReturnObject.createSuccessByMessageAndData("实验时增加成功",duration);
+        }
+        else{
+            return ServerReturnObject.createErrorByMessage("实验时增加失败");
         }
     }
 }

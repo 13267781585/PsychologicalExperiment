@@ -21,4 +21,6 @@ public interface UserService {
     ServerReturnObject creditScoreInc(Integer userId, Float increase);
 
     ServerReturnObject creditScoreDec(Integer userId, Float decrease);
+
+    ServerReturnObject durationInc(Integer userId, Float increase);
 }

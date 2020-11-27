@@ -46,6 +46,7 @@ public interface ExperimentMapper {
          "pageSize":""     一页的记录数
        */
     @InsertProvider(type=ExperimentSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(Experiment record);
 
     @Select({

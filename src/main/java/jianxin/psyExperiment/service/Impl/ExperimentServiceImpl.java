@@ -68,18 +68,18 @@ public class ExperimentServiceImpl implements ExperimentService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：sendTimestamp");
         }
-        if(experiment.getPageView()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：pageView");
-        }
-        if(experiment.getEnrollment()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：enrollment");
-        }
-        if(experiment.getTotalLikes()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：totalLikes");
-        }
+//        if(experiment.getPageView()==null)
+//        {
+//            return ServerReturnObject.createErrorByMessage("参数不足：pageView");
+//        }
+//        if(experiment.getEnrollment()==null)
+//        {
+//            return ServerReturnObject.createErrorByMessage("参数不足：enrollment");
+//        }
+//        if(experiment.getTotalLikes()==null)
+//        {
+//            return ServerReturnObject.createErrorByMessage("参数不足：totalLikes");
+//        }
         if(experiment.getTag()==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：tag");
@@ -101,12 +101,10 @@ public class ExperimentServiceImpl implements ExperimentService {
             return ServerReturnObject.createErrorByMessage("参数不足：timePeriods");
         }
 
-        experiment.setPageView(0);
-        experiment.setEnrollment(0);
-        experiment.setTotalLikes(0);
-        int result = experimentMapper.insert(experiment);
+
+        int result = experimentMapper.insertSelective(experiment);
         if(result == 1){
-            return ServerReturnObject.createSuccessByMessage("数据添加成功");
+            return ServerReturnObject.createSuccessByMessageAndData("数据添加成功",result);
         }else{
             return ServerReturnObject.createErrorByMessage("新增实验失败");
         }

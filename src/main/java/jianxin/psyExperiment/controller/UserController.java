@@ -30,4 +30,7 @@ public interface UserController {
     //用户信誉分减少
     public ServerReturnObject creditScoreDec(Integer userId,Float decrease);
 
+    //用户实验时增加
+    public ServerReturnObject durationInc(Integer userId,Float increase);
+
 }
