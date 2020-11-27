@@ -69,10 +69,10 @@ public class AttendanceServiceImpl implements AttendanceService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         }
-        Integer day = attendanceMapper.selectByuserId(userId);
-        if(day==null){
+        Attendance attendance = attendanceMapper.selectByuserId(userId);
+        if(attendance.getDays()==null||attendance.getTimestamp()==null){
             return  ServerReturnObject.createByCodeAndMessageAndData(0,"该用户未曾签到",null);
         }
-        return ServerReturnObject.createSuccessByMessageAndData("获取签到天数",day);
+        return ServerReturnObject.createSuccessByMessageAndData("获取签到天数",attendance);
     }
 }

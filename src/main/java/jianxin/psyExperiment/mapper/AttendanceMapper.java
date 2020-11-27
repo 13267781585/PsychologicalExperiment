@@ -61,12 +61,14 @@ public interface AttendanceMapper {
 
     @Select({
             "select",
-            "days",
+            "timestamp, days",
             "from attendance",
             "where user_id = #{userId,jdbcType=INTEGER}"
     })
     @Results({
-            @Result(column="days", property="days", jdbcType=JdbcType.INTEGER, id=true)
+
+            @Result(column="timestamp", property="timestamp", jdbcType=JdbcType.INTEGER),
+            @Result(column="days", property="days", jdbcType=JdbcType.TINYINT)
     })
-    Integer selectByuserId(Integer userId);
+    Attendance selectByuserId(Integer userId);
 }

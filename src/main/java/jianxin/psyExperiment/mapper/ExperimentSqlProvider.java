@@ -182,10 +182,10 @@ public class ExperimentSqlProvider {
     {
         StringBuilder sb = new StringBuilder();
         if("performance_score".equals(example.get("descType")))
-            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes,  e.tag, e.status,  " +
+            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes,  e.tag, e.status, e.face_url ,e.username,  " +
                     "  e.time_periods from experiment e  left join user u on e.tester_id = u.id  where 1=1 ");
         else
-            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes,  e.tag, e.status,  " +
+            sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes,  e.tag, e.status, e.face_url ,e.username,  " +
                     " e.time_periods from experiment e where 1=1 ");
 
         if(!ComUtils.isEmpty(example.get("type")))
