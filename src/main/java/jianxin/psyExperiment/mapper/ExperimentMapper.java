@@ -37,6 +37,14 @@ public interface ExperimentMapper {
     })
     int insert(Experiment record);
 
+        /*
+         接口
+         "keyWord":""  关键字搜索
+         "type":""  实验类型
+         "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
+         "pageNum":""   分页开始位置
+         "pageSize":""     一页的记录数
+       */
     @InsertProvider(type=ExperimentSqlProvider.class, method="insertSelective")
     int insertSelective(Experiment record);
 
