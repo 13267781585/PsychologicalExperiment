@@ -171,30 +171,22 @@ public class ExperimentSqlProvider {
         return sql.toString();
     }
     /*
-          接口
-          "keyWord":""  关键字搜索
-          "type":""  实验类型
-          "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
-          "pageNum":""
-          "pageSize":""     一页的记录数
-        */
+    接口
+    "keWord":""  关键字搜索
+    "type":""  实验类型
+    "descType":""    降序字段 performance_score主试评分 duration时长 reward薪酬
+    "pageNum":""   分页开始位置
+    "pageSize":""     一页的记录数
+  */
     public String selectByExample(Map<String,String> example)
     {
         StringBuilder sb = new StringBuilder();
         if("performance_score".equals(example.get("descType")))
-<<<<<<< HEAD
             sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes,  e.tag, e.status, e.face_url ,e.username,  " +
                     "  e.time_periods from experiment e  left join user u on e.tester_id = u.id  where 1=1 ");
         else
             sb.append("select e.id, e.tester_id, e.type, e.name, e.content, e.duration, e.reward, e.place, e.requirement, e.time, e.send_timestamp, e.page_view, e.enrollment, e.total_likes,  e.tag, e.status, e.face_url ,e.username,  " +
                     " e.time_periods from experiment e where 1=1 ");
-=======
-            sb.append("select e.* " +
-                    " from experiment e  left join user u on e.tester_id = u.id  where 1=1 and e.status = '招募中' ");
-        else
-            sb.append("select e.* " +
-                    " from experiment e where 1=1  and e.status = '招募中' ");
->>>>>>> e424eb345db33068c34efc2b9ea70d6152c208e8
 
         if(!ComUtils.isEmpty(example.get("type")))
             sb.append(" and e.type = '").append(example.get("type")).append("' ");
