@@ -3,7 +3,17 @@ package jianxin.psyExperiment.mapper;
 import jianxin.psyExperiment.entity.Application;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.util.Map;
+
 public class ApplicationSqlProvider {
+    public String selectByExample(Map<String,String> param)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("select a.*,e.* from application a left join experiment e on a.experiment_id=e.id where a.user_id=");
+        sb.append(param.get("userId")).append(" and a.check_status=").append("'").append(param.get("checkStatus")).append("' order by a.sign_timestamp");
+        return sb.toString();
+    }
+
     public String insertSelective(Application record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("application");

@@ -3,6 +3,7 @@ import jianxin.psyExperiment.controller.ApplicationController;
 import jianxin.psyExperiment.entity.Application;
 import jianxin.psyExperiment.service.ApplicationService;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
+import jianxin.psyExperiment.support.util.ComUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,5 +54,12 @@ public class ApplicationControllerImpl implements  ApplicationController{
     @RequestMapping("/testerPass")
     public ServerReturnObject testerPass(Integer id, String checkStatus) {
         return applicationService.testerPass(id,checkStatus);
+    }
+
+    @RequestMapping("/userGetExpByExample")
+    public ServerReturnObject userGetExpByExample(Map<String, String> param) throws Exception {
+        if(ComUtils.isEmpty(param.get("userId")))
+            throw new Exception("用户id不能为空");
+        return applicationService.userGetExpByExample(param);
     }
 }

@@ -1,5 +1,6 @@
 package jianxin.psyExperiment.service.Impl;
 
+import com.github.pagehelper.PageHelper;
 import jianxin.psyExperiment.entity.Application;
 import jianxin.psyExperiment.entity.Experiment;
 import jianxin.psyExperiment.entity.ExperimentUserLike;
@@ -231,5 +232,13 @@ public class ApplicationServiceImpl implements ApplicationService {
             return ServerReturnObject.createSuccessByMessageAndData("主试不通过报名", record);
         }
         return ServerReturnObject.createErrorByMessage("主试通过失败");
+    }
+
+    @Override
+    public ServerReturnObject userGetExpByExample(Map<String, String> param) {
+        int pageNum = param.get("pageNum") == null ? 1 : Integer.parseInt(param.get("pageNum"));
+        int pageSize = param.get("pageSize") == null ? 10 : Integer.parseInt(param.get("pageSize"));
+        PageHelper.startPage(pageNum,pageSize);
+        return ServerReturnObject.createSuccessByData(applicationMapper.selectByExample(param));
     }
 }

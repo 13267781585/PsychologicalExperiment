@@ -1,6 +1,7 @@
 package jianxin.psyExperiment.controller;
 import jianxin.psyExperiment.entity.Application;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -28,4 +29,7 @@ public interface ApplicationController {
 
     //主试通过审核
     public ServerReturnObject testerPass(Integer id,String checkStatus);
+
+    //    被试筛选分页获取报名实验
+    public ServerReturnObject userGetExpByExample(@RequestBody Map<String,String>param) throws Exception;
 }
