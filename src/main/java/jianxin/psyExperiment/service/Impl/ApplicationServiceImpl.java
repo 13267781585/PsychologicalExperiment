@@ -240,5 +240,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         return ServerReturnObject.createSuccessByData(applicationMapper.selectByExample(param));
     }
 
-
+    @Override
+    public ServerReturnObject testerGetUserByExample(Map<String, String> param) {
+        ComUtils.mybatisPageHelper(param.get("pageNum"),param.get("pageSize"));
+        return ServerReturnObject.createSuccessByData(applicationMapper.selectUserByExample(param));
+    }
 }

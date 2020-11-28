@@ -24,5 +24,6 @@ public interface ApplicationService {
 
     ServerReturnObject userGetExpByExample(Map<String,String>param);
 
+    ServerReturnObject testerGetUserByExample(Map<String,String>param);
 
 }

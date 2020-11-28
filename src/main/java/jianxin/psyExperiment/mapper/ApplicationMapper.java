@@ -43,6 +43,43 @@ public interface ApplicationMapper {
     })
     List<Application> selectByExample(Map<String,String> param);
 
+
+    /*
+         接口
+         "keWord":""  关键字搜索
+         "check_status":""  审核状态
+         "pageNum":""   分页开始位置
+         "pageSize":""     一页的记录数
+       */
+    @SelectProvider(type=ApplicationSqlProvider.class,method = "selectUserByExample")
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="experiment_id", property="experimentId", jdbcType=JdbcType.INTEGER),
+            @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER),
+            @Result(column="time_period", property="timePeriod", jdbcType=JdbcType.VARCHAR),
+            @Result(column="tester_schedule", property="testerSchedule", jdbcType=JdbcType.VARCHAR),
+            @Result(column="user_schedule", property="userSchedule", jdbcType=JdbcType.VARCHAR),
+            @Result(column="check_status", property="checkStatus", jdbcType=JdbcType.VARCHAR),
+            @Result(column="sign_timestamp", property="signTimestamp", jdbcType=JdbcType.INTEGER),
+            @Result(column="id", property="user.id", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="open_id", property="user.openId", jdbcType=JdbcType.VARCHAR),
+            @Result(column="username", property="user.username", jdbcType=JdbcType.VARCHAR),
+            @Result(column="identity", property="user.identity", jdbcType=JdbcType.VARCHAR),
+            @Result(column="face_url", property="user.faceUrl", jdbcType=JdbcType.VARCHAR),
+            @Result(column="college", property="user.college", jdbcType=JdbcType.VARCHAR),
+            @Result(column="major", property="user.major", jdbcType=JdbcType.VARCHAR),
+            @Result(column="grade", property="user.grade", jdbcType=JdbcType.SMALLINT),
+            @Result(column="phone", property="user.phone", jdbcType=JdbcType.VARCHAR),
+            @Result(column="sex", property="user.sex", jdbcType=JdbcType.VARCHAR),
+            @Result(column="duration", property="user.duration", jdbcType=JdbcType.REAL),
+            @Result(column="sno", property="user.sno", jdbcType=JdbcType.INTEGER),
+            @Result(column="performance_score", property="user.performanceScore", jdbcType=JdbcType.REAL),
+            @Result(column="credit_score", property="user.creditScore", jdbcType=JdbcType.REAL),
+            @Result(column="coins", property="user.coins", jdbcType=JdbcType.INTEGER),
+            @Result(column="wechat", property="user.wechat", jdbcType=JdbcType.VARCHAR)
+    })
+    List<Application> selectUserByExample(Map<String,String> param);
+
     @Delete({
         "delete from application",
         "where id = #{id,jdbcType=INTEGER}"
