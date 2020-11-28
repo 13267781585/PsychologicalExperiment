@@ -214,7 +214,7 @@ public class UserServiceImpl implements UserService {
         Float duration=user.getDuration()+increase;
         if(duration<0)
             duration=0f;
-        user.setCreditScore(duration);
+        user.setDuration(duration);
         Integer flag=userMapper.updateByPrimaryKey(user);
         if(flag>0)
         {
