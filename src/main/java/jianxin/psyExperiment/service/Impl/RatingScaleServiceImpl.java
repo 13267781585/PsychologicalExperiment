@@ -1,6 +1,8 @@
 package jianxin.psyExperiment.service.Impl;
 
 
+import jianxin.psyExperiment.entity.Tester;
+import jianxin.psyExperiment.mapper.TesterMapper;
 import jianxin.psyExperiment.support.objIsUtil.ObjIsNullUtil;
 import jianxin.psyExperiment.entity.RatingScale;
 import jianxin.psyExperiment.entity.User;
@@ -18,6 +20,9 @@ public class RatingScaleServiceImpl implements RatingScaleService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private TesterMapper testerMapper;
 
     @Override
     public ServerReturnObject mark(RatingScale ratingScale) throws IllegalAccessException {
@@ -63,12 +68,12 @@ public class RatingScaleServiceImpl implements RatingScaleService {
             }
             else if(ratingScale.getType().equals("tester")){
                 Integer testerId = ratingScale.getTesterId();
-                User tester = userMapper.selectByPrimaryKey(testerId);
+                Tester tester = testerMapper.selectByPrimaryKey(testerId);
                 int num = ratingScaleMapper.getNumByTesterId(testerId);
                 //因为有一个评分是系统默认评分 所以需要num+1；
                 float rate = (tester.getPerformanceScore()*num+ratingScale.getScore())/(num+1);
                 tester.setPerformanceScore(rate);
-                userMapper.updateByPrimaryKey(tester);
+                testerMapper.updateByPrimaryKey(tester);
                 return ServerReturnObject.createSuccessByMessageAndData("评分成功",rate);
             }
             return  ServerReturnObject.createErrorByMessage("评分失败");
