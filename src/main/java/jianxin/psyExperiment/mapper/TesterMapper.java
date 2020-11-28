@@ -29,9 +29,11 @@ public interface TesterMapper {
         "#{performanceScore,jdbcType=REAL}, #{creditScore,jdbcType=REAL}, ",
         "#{coins,jdbcType=INTEGER}, #{wechat,jdbcType=VARCHAR})"
     })
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(Tester record);
 
     @InsertProvider(type=TesterSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(Tester record);
 
     @Select({

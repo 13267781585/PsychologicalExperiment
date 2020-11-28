@@ -56,19 +56,20 @@ public class UserServiceImpl implements UserService {
             }
         }else
         {
-            for(int i = 0;i<exist.size();i++)
-            {
-                if(exist.get(i).getIdentity().equals(user.getIdentity()))//判断身份是否和这次的身份一样
-                    return ServerReturnObject.createByCodeAndMessageAndData(1,"已注册",exist.get(i).getId());
-            }
-            //之前注册过另一种身份
-
-            int result = userMapper.insertSelective(user);
-            if (result > 0) {
-                return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
-            } else {
-                throw new Exception("添加失败");
-            }
+            return ServerReturnObject.createByCodeAndMessageAndData(1,"已注册",exist.get(0).getId());
+//            for(int i = 0;i<exist.size();i++)
+//            {
+//                if(exist.get(i).getIdentity().equals(user.getIdentity()))//判断身份是否和这次的身份一样
+//                    return ServerReturnObject.createByCodeAndMessageAndData(1,"已注册",exist.get(i).getId());
+//            }
+//            //之前注册过另一种身份
+//
+//            int result = userMapper.insertSelective(user);
+//            if (result > 0) {
+//                return ServerReturnObject.createSuccessByMessageAndData("数据添加成功", user.getId());
+//            } else {
+//                throw new Exception("添加失败");
+//            }
         }
 
     }
