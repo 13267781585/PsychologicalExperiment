@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         {
             throw new Exception("参数不足：id");
         }
-        Object result = userMapper.selectByPrimaryKey(id);
+        User result = userMapper.selectByPrimaryKey(id);
         if(result==null)
         {
             throw new Exception("指定id用户不存在");
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject register(User user) throws Exception{
+    public ServerReturnObject registerUser(User user) throws Exception{
         if(user.getOpenId()==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：openId");
@@ -58,9 +58,10 @@ public class UserServiceImpl implements UserService {
         {
             for(int i = 0;i<exist.size();i++)
             {
-                if(exist.get(i).getIdentity().equals(user.getIdentity()))
+                if(exist.get(i).getIdentity().equals(user.getIdentity()))//判断身份是否和这次的身份一样
                     return ServerReturnObject.createByCodeAndMessageAndData(1,"已注册",exist.get(i).getId());
             }
+            //之前注册过另一种身份
 
             int result = userMapper.insertSelective(user);
             if (result > 0) {
@@ -73,7 +74,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject edit(User user) throws Exception{
+    public ServerReturnObject editUser(User user) throws Exception{
         if(user.getId()==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：id");
@@ -110,7 +111,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject coinsInc(Integer userId, Integer increase) {
+    public ServerReturnObject userCoinsInc(Integer userId, Integer increase) {
         if(userId==null)
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         if(increase==null)
@@ -133,7 +134,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject coinsDec(Integer userId, Integer decrease) {
+    public ServerReturnObject userCoinsDec(Integer userId, Integer decrease) {
         if(userId==null)
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         if(decrease==null)
@@ -157,7 +158,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject creditScoreInc(Integer userId, Float increase) {
+    public ServerReturnObject userCreditScoreInc(Integer userId, Float increase) {
         if(userId==null)
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         if(increase==null)
@@ -180,7 +181,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject creditScoreDec(Integer userId, Float decrease) {
+    public ServerReturnObject userCreditScoreDec(Integer userId, Float decrease) {
         if(userId==null)
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         if(decrease==null)
@@ -203,7 +204,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerReturnObject durationInc(Integer userId, Float increase) {
+    public ServerReturnObject userDurationInc(Integer userId, Float increase) {
         if(userId==null)
             return ServerReturnObject.createErrorByMessage("参数不足：userId");
         if(increase==null)
@@ -223,5 +224,15 @@ public class UserServiceImpl implements UserService {
         else{
             return ServerReturnObject.createErrorByMessage("实验时增加失败");
         }
+    }
+
+    @Override
+    public ServerReturnObject findUserCoins(String openId) {
+        Integer coins = userMapper.findUserCoins(openId);
+        if(coins==null)
+        {
+            return ServerReturnObject.createErrorByMessage("用户未注册被试身份");
+        }
+        return ServerReturnObject.createSuccessByMessageAndData("被试身份代币数",coins);
     }
 }

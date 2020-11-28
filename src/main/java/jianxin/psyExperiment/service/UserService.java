@@ -10,17 +10,19 @@ public interface UserService {
 
     ServerReturnObject getUser(Integer id) throws Exception;
 
-    ServerReturnObject register(User user) throws Exception;
+    ServerReturnObject registerUser(User user) throws Exception;
 
-    ServerReturnObject edit(User user)throws Exception;
+    ServerReturnObject editUser(User user)throws Exception;
 
-    ServerReturnObject coinsInc(Integer userId,Integer increase);
+    ServerReturnObject userCoinsInc(Integer userId, Integer increase);
 
-    ServerReturnObject coinsDec(Integer userId,Integer decrease);
+    ServerReturnObject userCoinsDec(Integer userId, Integer decrease);
 
-    ServerReturnObject creditScoreInc(Integer userId, Float increase);
+    ServerReturnObject userCreditScoreInc(Integer userId, Float increase);
 
-    ServerReturnObject creditScoreDec(Integer userId, Float decrease);
+    ServerReturnObject userCreditScoreDec(Integer userId, Float decrease);
 
-    ServerReturnObject durationInc(Integer userId, Float increase);
+    ServerReturnObject userDurationInc(Integer userId, Float increase);
+
+    ServerReturnObject findUserCoins(String openId);
 }

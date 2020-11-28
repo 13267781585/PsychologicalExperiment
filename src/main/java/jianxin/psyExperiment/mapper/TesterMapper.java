@@ -1,21 +1,27 @@
 package jianxin.psyExperiment.mapper;
 
-import jianxin.psyExperiment.entity.User;
-import org.apache.ibatis.annotations.*;
+import jianxin.psyExperiment.entity.Tester;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
 
-@Mapper
-public interface UserMapper {
+public interface TesterMapper {
     @Delete({
-        "delete from user",
+        "delete from tester",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into user (id, open_id, ",
+        "insert into tester (id, open_id, ",
         "username, identity, ",
         "face_url, college, ",
         "major, grade, phone, ",
@@ -30,18 +36,16 @@ public interface UserMapper {
         "#{performanceScore,jdbcType=REAL}, #{creditScore,jdbcType=REAL}, ",
         "#{coins,jdbcType=INTEGER}, #{wechat,jdbcType=VARCHAR})"
     })
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
-    int insert(User record);
+    int insert(Tester record);
 
-    @InsertProvider(type=UserSqlProvider.class, method="insertSelective")
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
-    int insertSelective(User record);
+    @InsertProvider(type=TesterSqlProvider.class, method="insertSelective")
+    int insertSelective(Tester record);
 
     @Select({
         "select",
         "id, open_id, username, identity, face_url, college, major, grade, phone, sex, ",
         "duration, sno, performance_score, credit_score, coins, wechat",
-        "from user",
+        "from tester",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
@@ -62,13 +66,13 @@ public interface UserMapper {
         @Result(column="coins", property="coins", jdbcType=JdbcType.INTEGER),
         @Result(column="wechat", property="wechat", jdbcType=JdbcType.VARCHAR)
     })
-    User selectByPrimaryKey(Integer id);
+    Tester selectByPrimaryKey(Integer id);
 
-    @UpdateProvider(type=UserSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(User record);
+    @UpdateProvider(type=TesterSqlProvider.class, method="updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(Tester record);
 
     @Update({
-        "update user",
+        "update tester",
         "set open_id = #{openId,jdbcType=VARCHAR},",
           "username = #{username,jdbcType=VARCHAR},",
           "identity = #{identity,jdbcType=VARCHAR},",
@@ -86,47 +90,19 @@ public interface UserMapper {
           "wechat = #{wechat,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(Tester record);
 
     @Select({
             "select *",
-            "from user"
+            "from tester"
     })
-    List<User> selectAll();
-
-    @Update({
-            "update user",
-            "set open_id = #{openId,jdbcType=VARCHAR},",
-            "username = #{username,jdbcType=VARCHAR},",
-            "identity = #{identity,jdbcType=VARCHAR},",
-            "face_url = #{faceUrl,jdbcType=VARCHAR},",
-            "college = #{college,jdbcType=VARCHAR},",
-            "major = #{major,jdbcType=VARCHAR},",
-            "grade = #{grade,jdbcType=SMALLINT},",
-            "phone = #{phone,jdbcType=VARCHAR},",
-            "sex = #{sex,jdbcType=VARCHAR},",
-            "duration = #{duration,jdbcType=REAL},",
-            "sno = #{sno,jdbcType=INTEGER},",
-            "performance_score = #{performanceScore,jdbcType=REAL},",
-            "credit_score = #{creditScore,jdbcType=REAL},",
-            "coins = #{coins,jdbcType=INTEGER},",
-            "wechat = #{wechat,jdbcType=VARCHAR}",
-            "where open_id = #{openId,jdbcType=VARCHAR}"
-    })
-    int updateByOpenId(User record);
-
-    @Select({
-            "select *",
-            " from user",
-            " where user.id = ANY(select user_id from application where experiment_id =#{experimentId,jdbcType=INTEGER})"
-    })
-    List<User> selectByExperimentId(Integer experimentId);
+    List<Tester> selectAll();
 
     @Select({
             "select",
             "id, open_id, username, identity, face_url, college, major, grade, phone, sex, ",
             "duration, sno, performance_score, credit_score, coins, wechat",
-            "from user",
+            "from tester",
             "where open_id = #{openId,jdbcType=INTEGER}"
     })
     @Results({
@@ -147,16 +123,5 @@ public interface UserMapper {
             @Result(column="coins", property="coins", jdbcType=JdbcType.INTEGER),
             @Result(column="wechat", property="wechat", jdbcType=JdbcType.VARCHAR)
     })
-    List<User> selectByOpenId(String openId);
-
-    @Select({
-            "select",
-            "coins",
-            "from user",
-            "where open_id = #{openId,jdbcType=VARCHAR} and identity = '被试' "
-    })
-    @Results({
-            @Result(column="coins", property="coins", jdbcType=JdbcType.INTEGER)
-    })
-    Integer findUserCoins(String openId);
+    List<Tester> selectByOpenId(String openId);
 }
