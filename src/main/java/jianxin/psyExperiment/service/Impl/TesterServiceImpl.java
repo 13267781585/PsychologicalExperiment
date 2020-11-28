@@ -105,7 +105,8 @@ public class TesterServiceImpl implements TesterService {
         int result = testerMapper.updateByPrimaryKeySelective(tester);
         if(result>0)
         {
-            return ServerReturnObject.createSuccessByMessageAndData("数据修改成功",result);
+            Tester tester1 = testerMapper.selectByPrimaryKey(tester.getId());
+            return ServerReturnObject.createSuccessByMessageAndData("数据修改成功",tester1);
         }
         else{
             return ServerReturnObject.createErrorByMessage("数据修改失败");

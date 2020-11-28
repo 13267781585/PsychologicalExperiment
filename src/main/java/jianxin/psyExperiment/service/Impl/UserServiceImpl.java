@@ -103,7 +103,8 @@ public class UserServiceImpl implements UserService {
         int result = userMapper.updateByPrimaryKeySelective(user);
         if(result>0)
         {
-            return ServerReturnObject.createSuccessByMessageAndData("数据修改成功",result);
+            User user1 = userMapper.selectByPrimaryKey(user.getId());
+            return ServerReturnObject.createSuccessByMessageAndData("数据修改成功",user1);
         }
         else{
             return ServerReturnObject.createErrorByMessage("数据修改失败");
