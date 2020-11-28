@@ -224,7 +224,7 @@ public class ExperimentSqlProvider {
             sb.append(" and status='招募中' ");
         else
         if("已结束".equals(example.get("status")))
-            sb.append(" and status='已结束 ");
+            sb.append(" and status='已结束' ");
         else
         if("待发布".equals(example.get("status")))
             sb.append(" and status='待发布' ");
