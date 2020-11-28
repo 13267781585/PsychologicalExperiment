@@ -21,4 +21,6 @@ public interface ExperimentService {
     ServerReturnObject selectExperimentByExample(Map<String,String> example);
 
     ServerReturnObject updateExperiment(Experiment experiment) throws IllegalAccessException;
+
+    ServerReturnObject testerGetExpByExample(Map<String, String> param);
 }

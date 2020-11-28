@@ -196,5 +196,13 @@ public class ExperimentServiceImpl implements ExperimentService {
         }
     }
 
+    @Override
+    public ServerReturnObject testerGetExpByExample(Map<String, String> param) {
 
+        if(ComUtils.isEmpty(param.get("testerId")))
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：testerId");
+        }
+        return ServerReturnObject.createSuccessByData(experimentMapper.selectByTesterIdAndStatus(param));
+    }
 }

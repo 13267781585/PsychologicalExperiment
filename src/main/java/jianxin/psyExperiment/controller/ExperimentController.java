@@ -29,4 +29,7 @@ public interface ExperimentController {
 
     //按照条件搜索实验
     ServerReturnObject selectExperimentByExample(Map<String,String> example);
+
+    //按照主试id和状态搜索实验
+    ServerReturnObject testerGetExpByExample(Map<String, String> param);
 }

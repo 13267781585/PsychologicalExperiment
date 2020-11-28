@@ -58,6 +58,12 @@ public class ExperimentControllerImpl implements ExperimentController {
         return experimentService.selectExperimentByExample(example);
     }
 
+    @RequestMapping("/testerGetExpByExample")
+    public ServerReturnObject testerGetExpByExample(@RequestBody Map<String, String> param) {
+        return experimentService.testerGetExpByExample(param);
+    }
+
+
 //    @RequestMapping("/collectExp")
 //    public Map collectExp(Integer experimentId, Integer userId) {
 //        Map<String,Object>map = experimentService.collectExp(experimentId,userId);

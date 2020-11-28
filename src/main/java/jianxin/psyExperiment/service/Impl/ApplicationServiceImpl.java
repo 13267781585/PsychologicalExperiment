@@ -79,7 +79,6 @@ public class ApplicationServiceImpl implements ApplicationService {
             if(flag<=0){
                 return ServerReturnObject.createErrorByMessage("报名加一失败");
             }
-
             return ServerReturnObject.createSuccessByMessageAndData("报名成功",enrollment);
         }
         else{
@@ -240,4 +239,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         ComUtils.mybatisPageHelper(param.get("pageNum"),param.get("pageSize"));
         return ServerReturnObject.createSuccessByData(applicationMapper.selectByExample(param));
     }
+
+
 }

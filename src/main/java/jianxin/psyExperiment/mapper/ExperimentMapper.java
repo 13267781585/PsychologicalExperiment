@@ -154,6 +154,9 @@ public interface ExperimentMapper {
     })
     List<Experiment> selectByTesterId(Integer testerId);
 
+    @SelectProvider(type=ExperimentSqlProvider.class, method="selectByTesterId")
+    List<Experiment> selectByTesterIdAndStatus(Map<String,String> example);
+
     @Select({
             "select *",
             "from experiment",

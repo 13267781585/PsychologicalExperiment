@@ -204,4 +204,32 @@ public class ExperimentSqlProvider {
         return sb.toString();
     }
 
+    /*
+  接口  主试首页获取实验
+  testId：主试id
+  status:实验状态（ 招募中 已结束 待发布
+
+*/
+    public String selectByTesterId(Map<String,String> example)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("select id, tester_id, type, name, content, duration, reward, place, requirement, time, send_timestamp, page_view, enrollment, total_likes,  tag, status, face_url ,username,  " +
+                "  time_periods from experiment   where 1=1 ");
+
+        if(!ComUtils.isEmpty(example.get("testerId")))
+            sb.append(" and tester_id = ").append(example.get("testerId"));
+
+        if("招募中".equals(example.get("status")))
+            sb.append(" and status='招募中' ");
+        else
+        if("已结束".equals(example.get("status")))
+            sb.append(" and status='已结束 ");
+        else
+        if("待发布".equals(example.get("status")))
+            sb.append(" and status='待发布' ");
+        System.out.print(sb.toString());
+        return sb.toString();
+    }
+
 }

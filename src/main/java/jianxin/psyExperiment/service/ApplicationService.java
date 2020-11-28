@@ -23,4 +23,6 @@ public interface ApplicationService {
     ServerReturnObject testerPass(Integer id, String checkStatus);
 
     ServerReturnObject userGetExpByExample(Map<String,String>param);
+
+
 }
