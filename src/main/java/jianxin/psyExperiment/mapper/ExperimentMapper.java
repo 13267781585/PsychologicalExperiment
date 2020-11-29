@@ -122,13 +122,14 @@ public interface ExperimentMapper {
        */
     @SelectProvider(type=ExperimentSqlProvider.class, method="selectByExample")
     List<Experiment> selectByExample(Map<String,String> example);
+
     @Select({
             "select",
-            "id, tester_id, type, name, content,  duration, reward, place, requirement, ",
-            "time, send_timestamp, page_view, enrollment, total_likes, score, tag, status, ",
-            "date_start, date_end, time_periods",
+            "id, tester_id, type, name, content, duration, reward, place, requirement, time, ",
+            "send_timestamp, page_view, enrollment, total_likes, tag, status, face_url, username, ",
+            "time_periods",
             "from experiment",
-            "where tester_id = #{tester_id,jdbcType=INTEGER}"
+            "where tester_id = #{testerId,jdbcType=INTEGER}"
     })
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -140,16 +141,15 @@ public interface ExperimentMapper {
             @Result(column="reward", property="reward", jdbcType=JdbcType.SMALLINT),
             @Result(column="place", property="place", jdbcType=JdbcType.VARCHAR),
             @Result(column="requirement", property="requirement", jdbcType=JdbcType.VARCHAR),
-            @Result(column="time", property="time", jdbcType=JdbcType.SMALLINT),
+            @Result(column="time", property="time", jdbcType=JdbcType.REAL),
             @Result(column="send_timestamp", property="sendTimestamp", jdbcType=JdbcType.INTEGER),
             @Result(column="page_view", property="pageView", jdbcType=JdbcType.INTEGER),
             @Result(column="enrollment", property="enrollment", jdbcType=JdbcType.INTEGER),
             @Result(column="total_likes", property="totalLikes", jdbcType=JdbcType.INTEGER),
-            @Result(column="score", property="score", jdbcType=JdbcType.REAL),
-            @Result(column="tag", property="tag", jdbcType=JdbcType.CHAR),
-            @Result(column="status", property="status", jdbcType=JdbcType.CHAR),
-            @Result(column="date_start", property="dateStart", jdbcType=JdbcType.CHAR),
-            @Result(column="date_end", property="dateEnd", jdbcType=JdbcType.CHAR),
+            @Result(column="tag", property="tag", jdbcType=JdbcType.VARCHAR),
+            @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+            @Result(column="face_url", property="faceUrl", jdbcType=JdbcType.VARCHAR),
+            @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
             @Result(column="time_periods", property="timePeriods", jdbcType=JdbcType.VARCHAR)
     })
     List<Experiment> selectByTesterId(Integer testerId);
