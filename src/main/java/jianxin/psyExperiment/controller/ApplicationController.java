@@ -32,4 +32,8 @@ public interface ApplicationController {
 
     //    被试筛选分页获取报名实验
     public ServerReturnObject userGetExpByExample(@RequestBody Map<String,String>param) throws Exception;
+
+    //    主试筛选分页获取报名被试
+    public ServerReturnObject testerGetUserByExample(@RequestBody Map<String,String>param) throws Exception;
+
 }

@@ -19,6 +19,20 @@ public class ApplicationSqlProvider {
         return sb.toString();
     }
 
+    public String selectUserByExample(Map<String,String> param)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("select a.*,e.* from application a left join user e on a.user_id=e.id where a.experiment_id=");
+        sb.append(param.get("experimentId"));
+        if(!ComUtils.isEmpty(param.get("keyWord")))
+            sb.append(" and e.username like '%").append(param.get("keyWord")).append("%' ");
+        if(!ComUtils.isEmpty(param.get("checkStatus")))
+            sb.append(" and a.check_status=").append("'").append(param.get("checkStatus")).append("' ");
+        sb.append(" order by a.sign_timestamp");
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
+
     public String insertSelective(Application record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("application");

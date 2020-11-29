@@ -62,4 +62,10 @@ public class ApplicationControllerImpl implements  ApplicationController{
             throw new Exception("用户id不能为空");
         return applicationService.userGetExpByExample(param);
     }
+    @RequestMapping("/testerGetUserByExample")
+    public ServerReturnObject testerGetUserByExample(Map<String, String> param) throws Exception {
+        if(ComUtils.isEmpty(param.get("experimentId")))
+            throw new Exception("实验id不能为空");
+        return applicationService.testerGetUserByExample(param);
+    }
 }
