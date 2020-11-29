@@ -1,6 +1,7 @@
 package jianxin.psyExperiment.mapper;
 
 import jianxin.psyExperiment.entity.Application;
+import jianxin.psyExperiment.support.util.ComUtils;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.util.Map;
@@ -10,7 +11,11 @@ public class ApplicationSqlProvider {
     {
         StringBuilder sb = new StringBuilder();
         sb.append("select a.*,e.* from application a left join experiment e on a.experiment_id=e.id where a.user_id=");
-        sb.append(param.get("userId")).append(" and a.check_status=").append("'").append(param.get("checkStatus")).append("' order by a.sign_timestamp");
+        sb.append(param.get("userId"));
+        if(!ComUtils.isEmpty(param.get("checkStatus")))
+            sb.append(" and a.check_status=").append("'").append(param.get("checkStatus")).append("' ");
+        sb.append(" order by a.sign_timestamp");
+        System.out.println(sb.toString());
         return sb.toString();
     }
 
