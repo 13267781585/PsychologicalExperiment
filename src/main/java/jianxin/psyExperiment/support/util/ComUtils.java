@@ -18,9 +18,9 @@ public final class ComUtils {
 	 */
 	public static void mybatisPageHelper(String pageNum,String pageSize)
 	{
-		int pn = ComUtils.isEmpty(pageNum) ? 1 : Integer.parseInt(pageNum);
-		int ps = ComUtils.isEmpty(pageSize) ? 10 : Integer.parseInt(pageSize);
-		PageHelper.startPage(pn,ps);
+		int pn = ComUtils.isEmpty(pageNum)  ? 1 : Integer.parseInt(pageNum);
+		int ps = ComUtils.isEmpty(pageSize) ? 20 : Integer.parseInt(pageSize);
+		PageHelper.startPage(pn < 0 ? 1 : pn,ps < 0 ? 20 : ps);
 	}
 
 	public static String toDateFormat(Date date, String pattern) {
