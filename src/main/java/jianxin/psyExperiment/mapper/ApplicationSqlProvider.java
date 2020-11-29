@@ -14,7 +14,7 @@ public class ApplicationSqlProvider {
         sb.append(param.get("userId"));
         if(!ComUtils.isEmpty(param.get("checkStatus")))
             sb.append(" and a.check_status=").append("'").append(param.get("checkStatus")).append("' ");
-        sb.append(" order by a.sign_timestamp");
+        sb.append(" order by a.sign_timestamp desc");
         System.out.println(sb.toString());
         return sb.toString();
     }
