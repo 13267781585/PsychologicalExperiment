@@ -11,6 +11,7 @@ import jianxin.psyExperiment.mapper.UserMapper;
 import jianxin.psyExperiment.service.ApplicationService;
 import jianxin.psyExperiment.support.objIsUtil.ObjIsNullUtil;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
+import jianxin.psyExperiment.support.util.ComUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -236,9 +237,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public ServerReturnObject userGetExpByExample(Map<String, String> param) {
-        int pageNum = param.get("pageNum") == null ? 1 : Integer.parseInt(param.get("pageNum"));
-        int pageSize = param.get("pageSize") == null ? 10 : Integer.parseInt(param.get("pageSize"));
-        PageHelper.startPage(pageNum,pageSize);
+        ComUtils.mybatisPageHelper(param.get("pageNum"),param.get("pageSize"));
         return ServerReturnObject.createSuccessByData(applicationMapper.selectByExample(param));
     }
 }

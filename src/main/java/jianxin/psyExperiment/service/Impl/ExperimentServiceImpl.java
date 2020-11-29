@@ -6,6 +6,7 @@ import jianxin.psyExperiment.mapper.ExperimentMapper;
 import jianxin.psyExperiment.service.ExperimentService;
 import jianxin.psyExperiment.support.objIsUtil.ObjIsNullUtil;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
+import jianxin.psyExperiment.support.util.ComUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -173,9 +174,7 @@ public class ExperimentServiceImpl implements ExperimentService {
 
     @Override
     public ServerReturnObject selectExperimentByExample(Map<String, String> example) {
-        int pageNum = example.get("pageNum") == null ? 1 : Integer.parseInt(example.get("pageNum"));
-        int pageSize = example.get("pageSize") == null ? 10 : Integer.parseInt(example.get("pageSize"));
-        PageHelper.startPage(pageNum,pageSize);
+        ComUtils.mybatisPageHelper(example.get("pageNum"),example.get("pageSize"));
         return ServerReturnObject.createSuccessByData(experimentMapper.selectByExample(example));
     }
 

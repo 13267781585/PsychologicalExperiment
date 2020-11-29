@@ -1,5 +1,7 @@
 package jianxin.psyExperiment.support.util;
 
+import com.github.pagehelper.PageHelper;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -8,6 +10,19 @@ import java.util.*;
 
 
 public final class ComUtils {
+	//分页处理
+	/*
+	pageNum:页码
+	pageSize:每页的记录数
+	isAutoHandler:当页码超过实际页码时，是否自动处理，如果不自动处理则返回空数据
+	 */
+	public static void mybatisPageHelper(String pageNum,String pageSize)
+	{
+		int pn = ComUtils.isEmpty(pageNum) ? 1 : Integer.parseInt(pageNum);
+		int ps = ComUtils.isEmpty(pageSize) ? 10 : Integer.parseInt(pageSize);
+		PageHelper.startPage(pn,ps);
+	}
+
 	public static String toDateFormat(Date date, String pattern) {
 		if (date == null) return "";
 		return new SimpleDateFormat(pattern).format(date);
