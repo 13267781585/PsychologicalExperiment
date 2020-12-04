@@ -1,7 +1,7 @@
 package jianxin.psyExperiment.controller.Impl;
 
+import jianxin.psyExperiment.controller.ConsultMessageController;
 import jianxin.psyExperiment.mapper.ConsultMessageMapper;
-import jianxin.psyExperiment.service.ConsultMessageService;
 import jianxin.psyExperiment.support.returnEntity.WebSocketReturnEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

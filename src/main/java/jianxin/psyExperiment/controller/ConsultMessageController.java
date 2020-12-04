@@ -1,4 +1,4 @@
-package jianxin.psyExperiment.controller.Impl;
+package jianxin.psyExperiment.controller;
 
 public interface ConsultMessageController {
     Object findAllConsultMessage(Integer userId);
