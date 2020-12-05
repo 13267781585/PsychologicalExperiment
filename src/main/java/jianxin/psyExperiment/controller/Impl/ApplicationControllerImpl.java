@@ -6,6 +6,7 @@ import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import jianxin.psyExperiment.support.util.ComUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -67,5 +68,10 @@ public class ApplicationControllerImpl implements  ApplicationController{
         if(ComUtils.isEmpty(param.get("experimentId")))
             throw new Exception("实验id不能为空");
         return applicationService.testerGetUserByExample(param);
+    }
+
+    @RequestMapping("/deleteApplicationById")
+    public ServerReturnObject deleteApplicationById(Integer id) {
+        return applicationService.deleteApplicationById(id);
     }
 }
