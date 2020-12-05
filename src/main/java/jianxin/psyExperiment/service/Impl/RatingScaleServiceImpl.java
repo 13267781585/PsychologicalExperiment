@@ -13,6 +13,8 @@ import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RatingScaleServiceImpl implements RatingScaleService {
     @Autowired
@@ -82,5 +84,33 @@ public class RatingScaleServiceImpl implements RatingScaleService {
             return  ServerReturnObject.createErrorByMessage("评分失败");
         }
 
+    }
+
+    @Override
+    public ServerReturnObject ifMarked(RatingScale ratingScale) {
+        if(ratingScale.getExperimentId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：experimentId");
+        }
+        if(ratingScale.getTesterId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：testerId");
+        }
+        if(ratingScale.getType()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：type");
+        }
+        if(ratingScale.getUserId()==null)
+        {
+            return ServerReturnObject.createErrorByMessage("参数不足：userId");
+        }
+        List<RatingScale> ratingScaleList= ratingScaleMapper.selectByRecord(ratingScale);
+        if(ratingScaleList.size()==0)
+        {
+            return ServerReturnObject.createByCodeAndMessageAndData(0,"未评分",null);
+        }
+        else{
+            return  ServerReturnObject.createByCodeAndMessageAndData(1,"已评分",ratingScaleList);
+        }
     }
 }
