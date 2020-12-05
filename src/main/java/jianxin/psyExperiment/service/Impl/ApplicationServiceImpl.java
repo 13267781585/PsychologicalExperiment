@@ -245,4 +245,9 @@ public class ApplicationServiceImpl implements ApplicationService {
         ComUtils.mybatisPageHelper(param.get("pageNum"),param.get("pageSize"));
         return ServerReturnObject.createSuccessByData(applicationMapper.selectUserByExample(param));
     }
+
+    @Override
+    public ServerReturnObject deleteApplicationById(Integer id) {
+        return applicationMapper.deleteByPrimaryKey(id) == 1 ? ServerReturnObject.createSuccessByMessage("删除成功!") : ServerReturnObject.createErrorByMessage("删除失败!");
+    }
 }

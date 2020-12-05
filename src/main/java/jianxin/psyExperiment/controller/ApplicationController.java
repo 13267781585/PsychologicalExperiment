@@ -36,4 +36,7 @@ public interface ApplicationController {
     //    主试筛选分页获取报名被试
     public ServerReturnObject testerGetUserByExample(@RequestBody Map<String,String>param) throws Exception;
 
+    //根据主键删除实验报名
+    ServerReturnObject deleteApplicationById(Integer id);
+
 }
