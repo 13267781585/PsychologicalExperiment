@@ -3,6 +3,9 @@ package jianxin.psyExperiment.mapper;
 import jianxin.psyExperiment.entity.RatingScale;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+
+import java.util.List;
+
 @Mapper
 public interface RatingScaleMapper {
     @Delete({
@@ -71,4 +74,24 @@ public interface RatingScaleMapper {
             "where tester_id = #{testerId,jdbcType=INTEGER} and type = 'tester' "
     })
     int getNumByTesterId(Integer testerId);
+
+    @Select({
+            "select",
+            "id, experiment_id, type, tester_id, user_id, score, timestamp",
+            "from rating_scale",
+            "where experiment_id = #{experimentId,jdbcType=INTEGER} and",
+            "tester_id=#{testerId,jdbcType=INTEGER} and",
+            "user_id=#{userId,jdbcType=INTEGER} and",
+            "type=#{type,jdbcType=VARCHAR}"
+    })
+    @Results({
+            @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+            @Result(column="experiment_id", property="experimentId", jdbcType=JdbcType.INTEGER),
+            @Result(column="type", property="type", jdbcType=JdbcType.VARCHAR),
+            @Result(column="tester_id", property="testerId", jdbcType=JdbcType.INTEGER),
+            @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER),
+            @Result(column="score", property="score", jdbcType=JdbcType.INTEGER),
+            @Result(column="timestamp", property="timestamp", jdbcType=JdbcType.INTEGER)
+    })
+    List<RatingScale> selectByRecord(RatingScale record);
 }

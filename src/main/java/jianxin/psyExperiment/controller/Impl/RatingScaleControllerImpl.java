@@ -17,4 +17,9 @@ public class RatingScaleControllerImpl implements RatingScaleController {
     public ServerReturnObject mark(RatingScale ratingScale)throws IllegalAccessException {
         return ratingScaleService.mark(ratingScale);
     }
+
+    @RequestMapping("/ifMarked")
+    public ServerReturnObject ifMarked(RatingScale ratingScale) throws IllegalAccessException {
+        return ratingScaleService.ifMarked(ratingScale);
+    }
 }
