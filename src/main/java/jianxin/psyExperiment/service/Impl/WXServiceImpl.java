@@ -13,8 +13,8 @@ public class WXServiceImpl implements WXService {
     private WXUtil wxUtil;
 
     @Override
-    public ServerReturnObject getOpenId(String code) {
-        String openId = wxUtil.getOpenId(code);
+    public ServerReturnObject getOpenId(String code,String appId,String secret) {
+        String openId = wxUtil.getOpenId(code,appId,secret);
         return ComUtils.isEmpty(openId) ? ServerReturnObject.createErrorByMessage("获取openId失败") : ServerReturnObject.createSuccessByData(openId);
     }
 

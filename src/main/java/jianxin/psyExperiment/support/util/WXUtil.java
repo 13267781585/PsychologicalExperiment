@@ -53,13 +53,13 @@ public class WXUtil {
     获取小程序openId
     code => 调用微信官方接口获取登录凭证（code）
      */
-    public String getOpenId(String code){
+    public String getOpenId(String code,String appId,String secret){
         //判断 ACCESS_TOKEN 是否为空和是否过期
         if(OPEN_ID != null)
             return OPEN_ID;
 
         //微信获取 access_token api
-        String url = "https://api.weixin.qq.com/sns/jscode2session?grant_type=authorization_code&"+ "appid=" + APP_ID + "&secret=" + APP_SECRET +
+        String url = "https://api.weixin.qq.com/sns/jscode2session?grant_type=authorization_code&"+ "appid=" + appId + "&secret=" + secret +
                 "&js_code=" + code;
 
         Map<String,String> responseContent = HttpUtil.GetHttp(url,false);

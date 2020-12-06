@@ -15,10 +15,10 @@ public class WXControllerImpl implements WXController {
     private WXService wxService;
 
     @RequestMapping("/getOpenId")
-    public ServerReturnObject getOpenId(String code) throws Exception {
+    public ServerReturnObject getOpenId(String code,String appId,String secret) throws Exception {
         if(ComUtils.isEmpty(code))
             throw new Exception("系统错误");
-        return wxService.getOpenId(code);
+        return wxService.getOpenId(code,appId,secret);
     }
 
 }
