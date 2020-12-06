@@ -81,10 +81,7 @@ public class ExperimentServiceImpl implements ExperimentService {
 //        {
 //            return ServerReturnObject.createErrorByMessage("参数不足：totalLikes");
 //        }
-        if(experiment.getTag()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：tag");
-        }
+
         if(experiment.getStatus()==null)
         {
             return ServerReturnObject.createErrorByMessage("参数不足：status");

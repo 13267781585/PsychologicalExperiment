@@ -228,6 +228,8 @@ public class ExperimentSqlProvider {
         else
         if("待发布".equals(example.get("status")))
             sb.append(" and status='待发布' ");
+
+        sb.append(" and status <> '已删除' ");
         System.out.print(sb.toString());
         return sb.toString();
     }
