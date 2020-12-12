@@ -80,26 +80,7 @@ public class UserServiceImpl implements UserService {
         {
             return ServerReturnObject.createErrorByMessage("参数不足：id");
         }
-        if(user.getMajor()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：major");
-        }
-        if(user.getGrade()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：grade");
-        }
-        if(user.getCollege()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：college");
-        }
-        if(user.getPhone()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：phone");
-        }
-        if(user.getSex()==null)
-        {
-            return ServerReturnObject.createErrorByMessage("参数不足：Sex");
-        }
+
         int result = userMapper.updateByPrimaryKeySelective(user);
         if(result>0)
         {
