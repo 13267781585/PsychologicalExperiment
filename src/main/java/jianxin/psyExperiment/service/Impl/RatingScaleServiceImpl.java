@@ -63,7 +63,13 @@ public class RatingScaleServiceImpl implements RatingScaleService {
                 User user = userMapper.selectByPrimaryKey(userId);
                 int num = ratingScaleMapper.getNumByUserId(userId);
                 //因为有一个评分是系统默认评分 所以需要num+1；
-                float rate = (user.getPerformanceScore()*num+ratingScale.getScore())/(num+1);
+                float rate = 0;
+                if(num==1){
+                    rate = ratingScale.getScore();
+                }
+                else{
+                    rate = (user.getPerformanceScore()*num+ratingScale.getScore())/(num);
+                }
                 user.setPerformanceScore(rate);
                 userMapper.updateByPrimaryKey(user);
                 return ServerReturnObject.createSuccessByMessageAndData("评分成功",rate);
@@ -73,7 +79,14 @@ public class RatingScaleServiceImpl implements RatingScaleService {
                 Tester tester = testerMapper.selectByPrimaryKey(testerId);
                 int num = ratingScaleMapper.getNumByTesterId(testerId);
                 //因为有一个评分是系统默认评分 所以需要num+1；
-                float rate = (tester.getPerformanceScore()*num+ratingScale.getScore())/(num+1);
+                float rate = 0;
+                if(num==1){
+                    rate = ratingScale.getScore();
+                }
+                else{
+                    rate = (tester.getPerformanceScore()*num+ratingScale.getScore())/(num);
+                }
+
                 tester.setPerformanceScore(rate);
                 testerMapper.updateByPrimaryKey(tester);
                 return ServerReturnObject.createSuccessByMessageAndData("评分成功",rate);
