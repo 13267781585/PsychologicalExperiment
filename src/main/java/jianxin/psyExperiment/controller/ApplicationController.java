@@ -39,4 +39,7 @@ public interface ApplicationController {
     //根据主键删除实验报名
     ServerReturnObject deleteApplicationById(Integer id);
 
+    //将报名表主试和被试完成进度为 已完成的数据 导出为excel
+    void printApplicationAllFinished();
+
 }

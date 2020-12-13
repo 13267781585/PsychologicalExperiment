@@ -1,26 +1,30 @@
 package jianxin.psyExperiment.service.Impl;
 
-import com.github.pagehelper.PageHelper;
 import jianxin.psyExperiment.entity.Application;
 import jianxin.psyExperiment.entity.Experiment;
-import jianxin.psyExperiment.entity.ExperimentUserLike;
 import jianxin.psyExperiment.entity.User;
 import jianxin.psyExperiment.mapper.ApplicationMapper;
 import jianxin.psyExperiment.mapper.ExperimentMapper;
 import jianxin.psyExperiment.mapper.UserMapper;
 import jianxin.psyExperiment.service.ApplicationService;
-import jianxin.psyExperiment.support.objIsUtil.ObjIsNullUtil;
 import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import jianxin.psyExperiment.support.util.ComUtils;
+import jianxin.psyExperiment.support.util.ExcelUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationServiceImpl.class);
+
     @Autowired
     private ApplicationMapper applicationMapper;
 
@@ -249,5 +253,54 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public ServerReturnObject deleteApplicationById(Integer id) {
         return applicationMapper.deleteByPrimaryKey(id) == 1 ? ServerReturnObject.createSuccessByMessage("删除成功!") : ServerReturnObject.createErrorByMessage("删除失败!");
+    }
+
+    @Override
+    public void printApplicationAllFinished() {
+        List<Application> applications = applicationMapper.selectApplicationByTesterAndUserScheduleFinish();
+        System.out.println(applications);
+        String[] title = {"报名编号","实验编号","被试学号","被试姓名","实验时","测试成绩","主试学号","主试姓名","测试类型"};
+
+        String fileName = "学生信息表"+System.currentTimeMillis()+".xls";
+
+        String sheetName = "实验报名表(已完成)";
+
+        List<List<String>> values = new ArrayList<>();
+
+        for(Application ap:applications){
+            List<String> value = new ArrayList<>();
+
+            value.add(ap.getId().toString());
+            value.add(ap.getExperiment().getId().toString());
+            value.add(ap.getUser().getSno().toString());
+            value.add(ap.getUser().getUsername());
+            value.add(ap.getExperiment().getDuration().toString());
+            value.add("合格");
+            value.add(ap.getTester().getSno().toString());
+            value.add(ap.getTester().getUsername());
+            value.add(ap.getExperiment().getType());
+            values.add(value);
+        }
+
+        ////////////////////////////////////////////////////
+        LOGGER.info("==打印已完成报名表数据：" + values.toString());
+        //////////////////////////////////////////////////
+
+        HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, values, null);
+        File tempFile = new File("D:/桌面/见心/"+fileName);;
+        OutputStream tempout = null;
+        try {
+            tempout = new FileOutputStream(tempFile);
+            wb.write(tempout);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                wb.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

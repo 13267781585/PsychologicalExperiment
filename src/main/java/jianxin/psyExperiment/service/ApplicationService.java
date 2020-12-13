@@ -27,4 +27,6 @@ public interface ApplicationService {
     ServerReturnObject testerGetUserByExample(Map<String,String>param);
 
     ServerReturnObject deleteApplicationById(Integer id);
+
+    void printApplicationAllFinished();
 }

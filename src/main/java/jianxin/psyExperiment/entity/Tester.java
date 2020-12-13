@@ -157,6 +157,28 @@ public class Tester {
         return wechat;
     }
 
+    @Override
+    public String toString() {
+        return "Tester{" +
+                "id=" + id +
+                ", openId='" + openId + '\'' +
+                ", username='" + username + '\'' +
+                ", identity='" + identity + '\'' +
+                ", faceUrl='" + faceUrl + '\'' +
+                ", college='" + college + '\'' +
+                ", major='" + major + '\'' +
+                ", grade=" + grade +
+                ", phone='" + phone + '\'' +
+                ", sex='" + sex + '\'' +
+                ", duration=" + duration +
+                ", sno=" + sno +
+                ", performanceScore=" + performanceScore +
+                ", creditScore=" + creditScore +
+                ", coins=" + coins +
+                ", wechat='" + wechat + '\'' +
+                '}';
+    }
+
     public void setWechat(String wechat) {
         this.wechat = wechat == null ? null : wechat.trim();
     }

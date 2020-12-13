@@ -5,21 +5,11 @@ public class Application {
 
     private Integer experimentId;
 
+    private Tester tester;
+
     private Experiment experiment;
 
     private User user;
-
-    public User getUser(){return user;}
-
-    public void setUser(User user){this.user=user;}
-
-    public Experiment getExperiment() {
-        return experiment;
-    }
-
-    public void setExperiment(Experiment experiment) {
-        this.experiment = experiment;
-    }
 
     private Integer userId;
 
@@ -32,6 +22,27 @@ public class Application {
     private String checkStatus;
 
     private Integer signTimestamp;
+
+    public User getUser(){return user;}
+
+    public void setUser(User user){this.user=user;}
+
+    public Experiment getExperiment() {
+        return experiment;
+    }
+
+
+    public Tester getTester() {
+        return tester;
+    }
+
+    public void setExperiment(Experiment experiment) {
+        this.experiment = experiment;
+    }
+
+    public void setTester(Tester tester) {
+        this.tester = tester;
+    }
 
     public Integer getId() {
         return id;
@@ -95,5 +106,22 @@ public class Application {
 
     public void setSignTimestamp(Integer signTimestamp) {
         this.signTimestamp = signTimestamp;
+    }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "id=" + id +
+                ", experimentId=" + experimentId +
+                ", tester=" + tester +
+                ", experiment=" + experiment +
+                ", user=" + user +
+                ", userId=" + userId +
+                ", timePeriod='" + timePeriod + '\'' +
+                ", testerSchedule='" + testerSchedule + '\'' +
+                ", userSchedule='" + userSchedule + '\'' +
+                ", checkStatus='" + checkStatus + '\'' +
+                ", signTimestamp=" + signTimestamp +
+                '}';
     }
 }

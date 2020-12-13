@@ -190,4 +190,29 @@ public class Experiment {
     public void setTimePeriods(String timePeriods) {
         this.timePeriods = timePeriods == null ? null : timePeriods.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Experiment{" +
+                "id=" + id +
+                ", testerId=" + testerId +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", duration=" + duration +
+                ", reward=" + reward +
+                ", place='" + place + '\'' +
+                ", requirement='" + requirement + '\'' +
+                ", time=" + time +
+                ", sendTimestamp=" + sendTimestamp +
+                ", pageView=" + pageView +
+                ", enrollment=" + enrollment +
+                ", totalLikes=" + totalLikes +
+                ", tag='" + tag + '\'' +
+                ", status='" + status + '\'' +
+                ", faceUrl='" + faceUrl + '\'' +
+                ", username='" + username + '\'' +
+                ", timePeriods='" + timePeriods + '\'' +
+                '}';
+    }
 }

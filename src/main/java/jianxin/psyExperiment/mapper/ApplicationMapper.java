@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface ApplicationMapper {
+public interface ApplicationMapper extends ApplicationMapperExtend{
     @SelectProvider(type=ApplicationSqlProvider.class,method = "selectByExample")
     @Results({
             @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),

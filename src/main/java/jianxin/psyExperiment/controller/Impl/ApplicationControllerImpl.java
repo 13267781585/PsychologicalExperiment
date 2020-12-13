@@ -6,10 +6,8 @@ import jianxin.psyExperiment.support.returnEntity.ServerReturnObject;
 import jianxin.psyExperiment.support.util.ComUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.Map;
 @RestController
 public class ApplicationControllerImpl implements  ApplicationController{
@@ -73,5 +71,10 @@ public class ApplicationControllerImpl implements  ApplicationController{
     @RequestMapping("/deleteApplicationById")
     public ServerReturnObject deleteApplicationById(Integer id) {
         return applicationService.deleteApplicationById(id);
+    }
+
+    @RequestMapping("/printApplicationAllFinished")
+    public void printApplicationAllFinished() {
+        applicationService.printApplicationAllFinished();
     }
 }
