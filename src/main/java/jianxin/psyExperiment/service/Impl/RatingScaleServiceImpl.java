@@ -3,7 +3,7 @@ package jianxin.psyExperiment.service.Impl;
 
 import jianxin.psyExperiment.entity.Tester;
 import jianxin.psyExperiment.mapper.TesterMapper;
-import jianxin.psyExperiment.support.objIsUtil.ObjIsNullUtil;
+import jianxin.psyExperiment.support.util.ObjIsNullUtil;
 import jianxin.psyExperiment.entity.RatingScale;
 import jianxin.psyExperiment.entity.User;
 import jianxin.psyExperiment.mapper.RatingScaleMapper;
